@@ -33,7 +33,6 @@ const YsfHome = () => {
      
      const updatecountry = (country) => {
          setSearch(false)
-         setCountries2([])
 
         setCountry(country)
 
@@ -254,7 +253,7 @@ const YsfHome = () => {
   Object.values(countries2).map((country, index) => {
     return (
        <div>
- <button className="text-secondary font-bold bg-[#EBEDF1] w-full px-4 py-2.5 text-left flex justify-between items-center rounded-md text-black-default mb-1.5">{country.channel} </button>
+ <button onClick={() =>  checkout()} className="text-secondary font-bold bg-[#EBEDF1] w-full px-4 py-2.5 text-left flex justify-between items-center rounded-md text-black-default mb-1.5">{country.channel} </button>
            </div>
 
     );
@@ -270,17 +269,6 @@ const YsfHome = () => {
     </div>
   </div>
 </section>
-
-
-
-<div>
- 
-
-  {/* footer */}
-  <footer className="fixed w-full bottom-0 bg-[#0e2566] py-[14px] text-center flex justify-center gap-1 flex-wrap px-5">
-    <p className="text-lg text-white font-light"> FAST IPTV SHOP TV | All Rights Reserved 2010 - 2022 | </p>
-  </footer>
-</div>
 
 
             

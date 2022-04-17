@@ -21,6 +21,7 @@ const Admin = () => {
 
 
   const getData = async () => {
+      console.log('/api/getlastsubs/'+page)
     let res1 = await axios.get('/api/yesterday')
     setYesterday(res1.data);
     let res2 = await axios.get('/api/today')
@@ -37,6 +38,17 @@ const Admin = () => {
     getData()
 
   }, [page])
+
+
+  
+  const changepageno  = (e) => {
+    setPage(e.target.value)
+}
+
+  
+const gotopage  = () => {
+    getData()
+}
 
 
   function MyTr (props){
@@ -60,6 +72,10 @@ const Admin = () => {
         <td className="px-4 py-3"><span className="inline-flex px-2 text-xs font-medium leading-5 rounded-full text-black bg-green-100 ">
             
         {props.status}
+        </span></td>
+        <td className="px-4 py-3"><span className="inline-flex px-2 text-xs font-medium leading-5 rounded-full text-black bg-green-100 ">
+            
+        {props.username}
         </span></td>
         <td className="px-4 py-3"><span className="text-sm">
             
@@ -174,12 +190,28 @@ Today
           
             <div className="w-full overflow-hidden rounded-lg shadow-xs mb-8">
             <div className="w-full overflow-x-auto">
+
+
+<div className='text-right inline-grid grid-cols-2 gap-4
+'>
+    <div className='space-x-2 text-right '>
+        
+<input value={page}
+                              onChange={changepageno} class="bg-blue-400 border-4 btn-secondary p-4 border-black text-black allign-center  py-1" type='number'/> 
+    </div>
+    <div >
+        
+<button   onClick={() => gotopage()}  class="bg-primary  btn-secondary py-1">Go to Page </button>
+    </div>
+</div>
+            
             <table className="w-full whitespace-no-wrap">
                 <thead className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <tr>
                         <td className="px-4 py-3">Client</td>
                         <td className="px-4 py-3">Amount</td>
                         <td className="px-4 py-3">Status</td>
+                        <td className="px-4 py-3">Username</td>
                         <td className="px-4 py-3">Date</td>
                         <td className="px-4 py-3">Actions</td>
                     </tr>
@@ -192,7 +224,7 @@ Today
     
     return (
         <MyTr email= {sub.userid} package={sub.packagename}  total={sub.packageprice}  
-        status={sub.status} date={sub.placeddate}  id={sub.id}   ></MyTr>
+        status={sub.status} date={sub.placeddate} username={sub.username}  id={sub.id}   ></MyTr>
 
         
     );

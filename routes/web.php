@@ -75,7 +75,7 @@ Route::get('/channels', function () {
 });
 
 Route::get('/countries', function () {
-    return Inertia::render('YsfCountries');
+    return Inertia::render('YsfCountries2');
 });
 
 Route::get('/payment', function () {
@@ -104,7 +104,7 @@ Route::get('/logout', function () {
 
 //Extend
 Route::get('/extend', function () {
-    return Inertia::render('ExtendRedirect');
+    return Inertia::render('FastCheckout');
 });
 
 Route::get('/completed', function () {

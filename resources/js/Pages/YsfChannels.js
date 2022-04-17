@@ -170,7 +170,7 @@ function Account(props) {
     </div>
 
     <h1 className='text-center font-bold text-2xl'>      {country} Channels List</h1>
-    <h1 className='text-center font-bold text-2xl'>      <a href="/countries" type="button" class="bg-white w-8/12 cursor-pointer  text-center items-center px-3 py-2 border border-gray-300 text-2xl text-2xl leading-4 font-thin rounded-md text-black  text-bold uppercase  ">Choose another country</a></h1>
+    <h1 className='text-center font-bold text-2xl'>      <a href="/countries" type="button" class="bg-white w-8/12 cursor-pointer  text-center items-center px-3 py-2 border border-gray-300 text-xl leading-4 font-thin rounded-md text-black  text-bold uppercase  ">Choose another country</a></h1>
    
     <h1 className={loading ? 'text-center' : 'hidden'}>Loading....</h1>
 

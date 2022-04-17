@@ -11,7 +11,12 @@ import { Icon } from '@iconify/react';
 
 const YsfHome = () => {
 
-    
+    const redirect = () => {
+        Inertia.get('/checkout', {  }, { replace: false })
+
+    }
+    const myRef = React.createRef();
+
     const [smartiptv, setsmartiptv] = useState(false);
     const [ibo, setibo] = useState(false);
     const [net, setnet] = useState(false);
@@ -25,6 +30,7 @@ const YsfHome = () => {
 
     
     const reset = () => {
+
         setformuler(false)
         setmag(false)
         setsmartiptv(false)
@@ -35,15 +41,20 @@ const YsfHome = () => {
         setset(false)
         setsmarters(false)
         setgse(false)
+
+        
+        myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     const smarttv = () => {
+
         reset()
         setsmartiptv(true)
         setnet(true)
         setibo(true)
         settvmate(true)
         setset(true)
+
     }
     const android = () => {
         reset()
@@ -118,7 +129,7 @@ const YsfHome = () => {
 
 
            <nav  className="max-w-[1500px] w-full  lg:px-5 mx-auto py-5 flex gap-8 xl:gap-28 items-center justify-between relative transition-all duration-300 ease-out">
- <a href="#" className="w-68 h-full object-cover px-5 lg:px-0"> <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-full h-auto object-cover inline-block" /></a>
+ <a className='underline'  href="#" className="w-68 h-full object-cover px-5 lg:px-0"> <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-full h-auto object-cover inline-block" /></a>
   <div onClick={(e) => {
         //stop clicks getting to the overlay
         e.stopPropagation();
@@ -126,7 +137,7 @@ const YsfHome = () => {
     
     <div className='grid grid-cols-2'>
     <div className="w-full ml-3 flex justify-center lg:hidden ">
-      <a href="#"><img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-40 h-auto object-contain " /></a>
+      <a className='underline'  href="#"><img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-40 h-auto object-contain " /></a>
     </div>
 
     <div onClick={ () => toggleNav() } className="w-full flex justify-center lg:hidden ">
@@ -162,8 +173,10 @@ const YsfHome = () => {
 <div>
   <header className="max-w-[1050px] w-full mx-auto px-5">
     <div className="flex flex-col items-center pt-[107px]">
-      <h1 className="heading-primary text-white mb-8">DOWNLOAD THE BEST IPTV APP</h1>
-      <h2 className="text-primary-text text-center font-bold">Our apps work flawlessly on tv, desktop, mobile and browser.</h2>
+      <h1 className="heading-primary text-white mb-8">HOW TO INSTALL IPTV</h1>
+      <h2 className="text-primary-text text-center font-bold">
+      Before beginning , you'll need M3u playlist link / Xtream codes api ( Username , Password and Url) or a Portal Url , we provide them immediately after the payment .    </h2>
+      <button onClick={() => redirect()}  class="bg-green-600 mt-3  w-full px-4 py-4 text-white text-xl uppercase mb-4 mx-auto">  Click to order a subscription</button>
     </div>
   </header>
   <section className="max-w-[1100px] w-full px-5 mx-auto mt-20 p">
@@ -229,7 +242,9 @@ const YsfHome = () => {
   </section>
 </div>
 
-<section>
+<div className='mb-4' ref={myRef}></div>
+
+<section   >
 
 
 <section className= {smartiptv ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
@@ -245,7 +260,7 @@ const YsfHome = () => {
     
 <br />
 <br />
-1- Head over to SIPTV site : <a href='https://siptv.app/mylist/'>https://siptv.app/mylist/</a>
+1- Head over to SIPTV site : <a className='underline'  href='https://siptv.app/mylist/'>https://siptv.app/mylist/</a>
 <br />
 <br />
 2- Add your device’s MAC address in the MAC field. 
@@ -282,8 +297,9 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650147040/FlWUkcJbDFetE2E
   the IBO PLAYER app is available for many different operating systems and devices:
   
 <br />
-Play store Android and Android TV: https://play.google.com/store/apps/details?id=com.shoum.iboplayer
-
+Play store Android and Android TV: <a className='underline'   href='https://play.google.com/store/apps/details?id=com.shoum.iboplayer
+'>https://play.google.com/store/apps/details?id=com.shoum.iboplayer
+</a>
 <br />LG smart TV (WebOS): available in LG content store
 
 <br />Samsung TV (Tizen OS): Available from the official Samsung App Store.
@@ -303,7 +319,9 @@ The steps to follow to configure your IPTV subscription on IBO Player:<br />
 
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650147309/iboniptvplayer_szrrgo.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
-2. On your PC, your mobile or any other device on which you have access to a browser, open the following address : https://iboiptv.com/device/login<br />
+2. On your PC, your mobile or any other device on which you have access to a browser, open the following address : 
+<a className='underline' href='https://iboiptv.com/device/login' >https://iboiptv.com/device/login </a> 
+<br />
 <br />
 3. Enter Device ID and Device Key, confirm humanity check and click Login. Follow the images below to add your M3U Playlist Link<br />
 
@@ -342,8 +360,9 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650147763/0_nbv5s0.jpg" a
 
   
 <br />
-Play store Android and Android TV: https://play.google.com/store/apps/details?id=com.net.iptv
-
+Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=com.net.iptv
+'>https://play.google.com/store/apps/details?id=com.net.iptv
+</a>
 <br />LG smart TV (WebOS): available in LG content store
 
 <br />Samsung TV (Tizen OS): Available from the official Samsung App Store.
@@ -364,7 +383,7 @@ Open application and you can see the MAC address , If not , navigate to info ( b
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650147900/install-netIPTV-01-1030x579-1_einkdb.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
 2. Upload M3u link via portal
-Open app upload page via browser : https://netiptv.eu/Upload
+Open app upload page via browser :  <a className='underline'  href='https://netiptv.eu/Upload'>https://netiptv.eu/Upload</a> <br/>
 Enter your  mac address  in MAC / APP ID field under UPLOAD m3U/URL row,  Then press Add List
 
 <img  
@@ -411,7 +430,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650148493/images_xza5yz.p
 
   
 <br />
-Play store Android and Android TV: https://install-iptv.com/setiptv
+Play store Android and Android TV: <a className='underline'  href='https://install-iptv.com/setiptv'>https://install-iptv.com/setiptv</a>
 
 
 
@@ -437,7 +456,7 @@ Open application and you can see the MAC address , If not , navigate to info ( b
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650148672/install-set-iptv-01-1030x579-1_h7tqq9.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
 2. Navigate to SET IPTV web portal
-Open the set IPTV upload page via browser : https://cms.manage-setiptv.com/set.app and Choose Playlist link method :
+Open the set IPTV upload page via browser : <a className='underline'  href='https://cms.manage-setiptv.com/set.app'> https://cms.manage-setiptv.com/set.app</a> <br/> and Choose Playlist link method :
 <br />
 Enter Mac address
 Enter your Set IPTV mac address  in TV MAC field
@@ -480,11 +499,12 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650151619/NlqmmxD6lY2xyEk
 
   
 <br />
-Play store Android and Android TV: https://play.google.com/store/apps/details?id=com.ott4knewapp.app
+Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=com.ott4knewapp.app
+'>https://play.google.com/store/apps/details?id=com.ott4knewapp.app
+</a>
 
 
-
-<br />iOS App: https://apps.apple.com/tr/app/4k-ott/id1552914260
+<br />iOS App: <a className='underline'  href='https://apps.apple.com/tr/app/4k-ott/id1552914260'>https://apps.apple.com/tr/app/4k-ott/id1552914260</a>
 
 <br />Amazon Fire TV (APK version) : bit.ly/3vkVnp6
 
@@ -527,8 +547,9 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650149564/images_ifg3g8.p
 
   
 <br />
-Play store Android and Android TV: https://play.google.com/store/apps/details?id=ar.tvplayer.tv
-
+Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=ar.tvplayer.tv
+'>https://play.google.com/store/apps/details?id=ar.tvplayer.tv
+</a>
 
 
 <br />LG smart TV (WebOS): available in LG content store
@@ -700,14 +721,14 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650150442/yriw_rw_4r1MPmx
 
   
 <br />
-Download for Android devices : https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US
-Download for iOS devices : https://apps.apple.com/us/app/iptv-smarters-player/id1383614816
+Download for Android devices : <a className='underline'  href='https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US'>https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US</a>
+Download for iOS devices : <a className='underline'  href='https://apps.apple.com/us/app/iptv-smarters-player/id1383614816'>https://apps.apple.com/us/app/iptv-smarters-player/id1383614816</a>
 <br />
-Download for MAC OS X : https://www.iptvsmarters.com/download?download=mac
+Download for MAC OS X : <a className='underline'  href='https://www.iptvsmarters.com/download?download=mac'>https://www.iptvsmarters.com/download?download=mac</a>
 <br />
 Download for Amazon Fire TV stick : iptvsmarters.com/smarters.apk
 <br />
-Download for Windows PC : https://www.iptvsmarters.com/download?download=windows
+Download for Windows PC : <a className='underline'  href='https://www.iptvsmarters.com/download?download=windows'>https://www.iptvsmarters.com/download?download=windows</a>
 <br />
 
 
@@ -776,10 +797,12 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650149977/GSE-SMART-IPTV-
 
   
 <br />
-Download for Android devices : https://play.google.com/store/apps/details?id=com.gsetech.smartiptv
-Download for iOS devices : https://apps.apple.com/app/gse-smart-iptv/id1028734023
+Download for Android devices : <a className='underline'  href='https://play.google.com/store/apps/details?id=com.gsetech.smartiptv'>https://play.google.com/store/apps/details?id=com.gsetech.smartiptv</a>
+
+<br/>
+Download for iOS devices : <a className='underline'  href='https://apps.apple.com/app/gse-smart-iptv/id1028734023'>https://apps.apple.com/app/gse-smart-iptv/id1028734023</a>
 <br />
-Download for MAC OS X : https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12
+Download for MAC OS X : <a className='underline'  href='https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12'>https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12</a>
 <br />
 Download for Amazon Fire TV stick : gsesmartiptv.com/dlgseiptv.php
 <br />

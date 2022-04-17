@@ -78,6 +78,10 @@ Route::get('/countries', function () {
     return Inertia::render('YsfCountries2');
 });
 
+Route::get('/activatem3u', function () {
+    return Inertia::render('ActivateM3u');
+});
+
 Route::get('/payment', function () {
     return Inertia::render('Payment');
 });

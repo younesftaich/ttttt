@@ -73,6 +73,16 @@ echo "<br>";
 Route::get('userexist/{email}', function($email) {
     return MyUserController::userexist($email);
 });
+Route::get('img/{link}', function($link) {
+
+$mylink = "http://logourl.net//4KOTTLOGO//AR//ISLAMIC//SAUDISUNNAH.png";
+
+return "
+
+
+<img src='$mylink'>";
+;
+});
 Route::post('checklogin', function(Request $request) {
    
     return MyUserController::checklogin($request);
@@ -89,6 +99,11 @@ Route::get('mysubscriptions', function() {
 
 Route::get('parse', function() {
     return MySubscriptionController::parse();
+});
+Route::get('deletechannels', function() {
+DB::table('channels')->truncate();
+
+
 });
 
 Route::get('countries', function() {
@@ -133,6 +148,42 @@ $offset = ($page - 1) * $items_per_page;
  $count2 = \DB::table('channels')->where('country', '=', $country)->count();
 
 $alldata =  DB::select("SELECT * FROM channels where country = '$country' LIMIT " . $offset . "," . $items_per_page );
+
+  $x = array(
+        'total' => $count2,
+        'channels' => $alldata,
+  
+    );
+
+echo json_encode((object) $x); 
+
+
+});
+
+
+Route::get('searchcountry/{country}', function($country) {
+
+return DB::select(" SELECT country FROM channels WHERE LOWER(channels.`country`) LIKE  '%$country%' group by 1 ");
+
+
+
+
+});
+
+Route::get('searchchannel/{channel}', function($channel) {
+
+return DB::select(" SELECT * FROM channels WHERE LOWER(channels.`channel`) LIKE  '%$channel%' group by 1 ");
+
+
+
+
+});
+Route::get('channelsbycountry2/{country}', function($country) {
+
+
+ $count2 = \DB::table('channels')->where('country', '=', $country)->count();
+
+$alldata =  DB::select("SELECT * FROM channels where country = '$country' " );
 
   $x = array(
         'total' => $count2,

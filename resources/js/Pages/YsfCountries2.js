@@ -10,6 +10,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { Icon } from '@iconify/react';
 
 const YsfHome = () => {
+    const myRef = React.createRef();
 
     const toggleNav = () => {
         setToggleMenu(!toggleMenu)
@@ -35,6 +36,9 @@ const YsfHome = () => {
          setCountries2([])
 
         setCountry(country)
+
+        myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+
 
      }
       
@@ -232,7 +236,7 @@ const YsfHome = () => {
       <div className="bg-white p-1.5 rounded-md h-[calc(100vh-176px)] overflow-hidden">
    
 
-      <div className="relative mt-5 mb-5">
+      <div  ref={myRef} className="relative mt-5 mb-5">
     
       <h1> Search for your favorite channel here and click the scoop button</h1>
 

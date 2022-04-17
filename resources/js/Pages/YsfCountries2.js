@@ -73,7 +73,7 @@ const YsfHome = () => {
     useEffect(() => {
        
         (async () => {
-            let checkresult =  axios.get('/api/searchcountry/'+searchCountry).then(response => response.data);   
+            let checkresult =  axios.get('https://fast-iptv.shop/api/searchcountry/'+searchCountry).then(response => response.data);   
             checkresult.then(function(result) {
                 setCountries(result)
                 setLoading(false)
@@ -89,7 +89,7 @@ const YsfHome = () => {
   useEffect(() => {
    if (search){
     (async () => {
-        let checkresult =  axios.get('/api/searchchannel/'+searchCountry2).then(response => response.data);   
+        let checkresult =  axios.get('https://fast-iptv.shop/api/searchchannel/'+searchCountry2).then(response => response.data);   
         checkresult.then(function(result) {
             setCountries2(result)
             setLoading2(false)
@@ -113,7 +113,7 @@ const YsfHome = () => {
     useEffect(() => {
        
         (async () => {
-            let checkresult =  axios.get('/api/channelsbycountry2/'+country).then(response => response.data);   
+            let checkresult =  axios.get('https://fast-iptv.shop/api/channelsbycountry2/'+country).then(response => response.data);   
             checkresult.then(function(result) {
                 setCountries2(result.channels)
                 setLoading2(false)
@@ -128,7 +128,7 @@ const YsfHome = () => {
     useEffect(() => {
        
         (async () => {
-            let checkresult =  axios.get('/api/countries').then(response => response.data);   
+            let checkresult =  axios.get('https://fast-iptv.shop/api/countries').then(response => response.data);   
             checkresult.then(function(result) {
                 console.log(result)
                 setCountries(result)

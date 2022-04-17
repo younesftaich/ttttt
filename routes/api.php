@@ -107,7 +107,8 @@ $offset = ($page - 1) * $items_per_page;
 
  $count2 = \DB::table('my_subscriptions')->count();
 
-$alldata =  DB::select("SELECT * FROM my_subscriptions ORDER BY 'id' LIMIT " . $offset . "," . $items_per_page );
+$alldata =  DB::select("SELECT * FROM `my_subscriptions` ORDER BY `my_subscriptions`.`id` DESC
+  LIMIT " . $offset . "," . $items_per_page);
 
   $x = array(
         'total' => $count2,

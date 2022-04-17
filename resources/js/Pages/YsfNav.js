@@ -47,7 +47,7 @@ const YsfNav = () => {
           <div className=" lg:mt-0 w-full pl-10 sm:pl-[120px] lg:pl-0">
       <ul className="flex flex-col lg:flex-row justify-between lg:items-center  lg:px-0  w-full max-w-full lg:max-w-[410px] h-full leading-10 lg:leading-normal border-b lg:border-b-0 border-gray-500 pb-10 lg:pb-0">
         <li><a href="/countries" className="text-medium text-white opacity-60 lg:opacity-100">Channels</a></li>
-        <li><a href="/" className="text-medium text-white opacity-60 lg:opacity-100">Setup</a></li>
+        <li><a href="/setup" className="text-medium text-white opacity-60 lg:opacity-100">Setup</a></li>
         <li><a href="/checkout" className="text-medium text-white opacity-60 lg:opacity-100">Pricing</a></li>
       </ul>
     </div>

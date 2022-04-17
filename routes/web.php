@@ -37,6 +37,10 @@ Route::get('/how-to-install-iptv-on-smart-tv', function () {
     return Inertia::render('Smarttv');
 });
 
+Route::get('/setup', function () {
+    return Inertia::render('Setup');
+});
+
 Route::get('/how-to-install-iptv-on-mag-box', function () {
     return Inertia::render('Mag');
 });

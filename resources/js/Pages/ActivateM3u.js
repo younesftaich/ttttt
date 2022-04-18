@@ -77,7 +77,7 @@ const activate = async () => {
          };
          console.log(subdata)
 
-    let res1 = await axios.post('https://fast-iptv.shop/activatem3u/'+id, subdata)
+    let res1 = await axios.post('/activatem3u/'+id, subdata)
          console.log(res1.data)
 
 }

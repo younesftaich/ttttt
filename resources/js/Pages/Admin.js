@@ -51,9 +51,19 @@ const gotopage  = () => {
 }
 
 
+const deletesub = async (unique) => {
+    let res1 = await axios.get('/api/deletesub/'+unique)
+         console.log(res1.data)
+
+}
+
+
   function MyTr (props){
       return (
         <tr className>
+            
+        <td className="px-4 py-3"><span className="text-sm">
+                        {props.id}</span></td>
         <td className="px-4 py-3">
             <div className="flex items-center text-sm">
         
@@ -83,16 +93,16 @@ const gotopage  = () => {
             </span></td>
         <td className="px-4 py-3">
             <div className="flex items-center space-x-4">
-                <button className="align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none text-gray-600 dark:text-gray-400 focus:outline-none border border-transparent active:bg-transparent hover:bg-gray-100 focus:shadow-outline-gray dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10" type="button" aria-label="Edit">
+                <a href={ props.type == "mag" ? '/activatemag?sub='+props.unique : '/activatem3u?sub='+props.unique } className="align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none text-gray-600 dark:text-gray-400 focus:outline-none border border-transparent active:bg-transparent hover:bg-gray-100 focus:shadow-outline-gray dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10" type="button" aria-label="Edit">
                     <svg fill="currentColor" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true">
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
-                </button>
-                <button className="align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none text-gray-600 dark:text-gray-400 focus:outline-none border border-transparent active:bg-transparent hover:bg-gray-100 focus:shadow-outline-gray dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10" type="button" aria-label="Delete">
+                </a>
+                <a  onClick={() => deletesub(props.unique)}   className="align-bottom inline-flex items-center justify-center cursor-pointer leading-5 transition-colors duration-150 font-medium focus:outline-none text-gray-600 dark:text-gray-400 focus:outline-none border border-transparent active:bg-transparent hover:bg-gray-100 focus:shadow-outline-gray dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10" type="button" aria-label="Delete">
                     <svg fill="currentColor" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true">
                         <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
-                </button>
+                </a>
             </div>
         </td>
     </tr>
@@ -208,6 +218,7 @@ Today
             <table className="w-full whitespace-no-wrap">
                 <thead className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                     <tr>
+                        <td className="px-4 py-3">Id</td>
                         <td className="px-4 py-3">Client</td>
                         <td className="px-4 py-3">Amount</td>
                         <td className="px-4 py-3">Status</td>
@@ -218,13 +229,15 @@ Today
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-gray-700 dark:text-gray-400">
               
+        <MyTr email= {"sub.userid"} package={"sub.packagename"}  total={"sub.packageprice"}  
+        status={"sub.status"} date={"sub.placeddate"} username={"sub.username"}  id={"sub.id"}  unique={"PQZUV6wHjpR80gc"} type={"mag"}   ></MyTr>
      
             {
   Object.values(subs).map((sub, index) => {
     
     return (
         <MyTr email= {sub.userid} package={sub.packagename}  total={sub.packageprice}  
-        status={sub.status} date={sub.placeddate} username={sub.username}  id={sub.id}   ></MyTr>
+        status={sub.status} date={sub.placeddate} username={sub.username}  id={sub.id}  unique={sub.uniqueid}  type={sub.type}   ></MyTr>
 
         
     );

@@ -73,6 +73,10 @@ echo "<br>";
 Route::get('userexist/{email}', function($email) {
     return MyUserController::userexist($email);
 });
+Route::get('deletesub/{unique}', function($unique) {
+return DB::table('my_subscriptions')->where('uniqueid', $unique)->delete();
+
+});
 Route::get('img/{link}', function($link) {
 
 $mylink = "http://logourl.net//4KOTTLOGO//AR//ISLAMIC//SAUDISUNNAH.png";

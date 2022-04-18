@@ -321,23 +321,130 @@ public function jobdone ($id)  {
 }
     public function activatemag(Request $request,$id)
     {
+    
+    $subid = MySubscription::where('id', '=', $id);
+    $myformat = 'd/m/Y H:i:s';
+$start = Carbon::now();
+         $email =  MyUserController::idtoemail($subid->first()->userid);
 
-        $subid = MySubscription::where('id', '=', $id);
         $plan = $subid->first()->plan;
         $dateobj = MySubscriptionController::setdate($plan);
-
-        $subid->update([
-            'startdate' => $dateobj->start,
-            'expiredate' => $dateobj->expire,
+    
+    $dataupdate = [
+       
             'status' => "Active",
             'active' => "yes",
+            'startdate' => $dateobj->start,
+            'expiredate' => $dateobj->expire,
             'portal' => $request->portal,
             'id4k' => $request->id4k,
             'mac' => $request->mac
-        ]);
+        ];
+    if ( $plan == 1 ) {
+         MySubscriptionController::sendmail( $email,"1month.php",$subid->first()->uniqueid);
+    }
+    else  if ( $plan == 12 ) {
+         MySubscriptionController::sendmail( $email,"12months.php",$subid->first()->uniqueid);
+    }
+    else  if ( $plan == 3 ) {
+         MySubscriptionController::sendmail( $email,"3months.php",$subid->first()->uniqueid);
+    }
+    else  if ( $plan == 6 ) {
+         MySubscriptionController::sendmail( $email,"6months.php",$subid->first()->uniqueid);
+    }
+    else  if ( $plan == 24 ) {
+             MySubscriptionController::sendmail( $email,"24.php",$subid->first()->uniqueid);
+
+    
+       $startdate = $start->format($myformat);
+         $expire = $start->addDays(1);
+         $expiredate = $expire->format($myformat);
+    
+    
+    $dataupdate = [
+       
+            'status' => "Active",
+            'active' => "yes",
+            'trial' => 1,
+            'startdate' => $startdate,
+            'expiredate' => $expiredate,
+            'portal' => $request->portal,
+            'id4k' => $request->id4k,
+            'mac' => $request->mac
+        ];
+    }
+    else  if ( $plan == 48 ) {
+             MySubscriptionController::sendmail( $email,"48.php",$subid->first()->uniqueid);
+
+    
+       $startdate = $start->format($myformat);
+         $expire = $start->addDays(2);
+         $expiredate = $expire->format($myformat);
+    
+    
+    $dataupdate = [
+       
+            'status' => "Active",
+            'active' => "yes",
+            'trial' => 1,
+            'startdate' => $startdate,
+            'expiredate' => $expiredate,
+            'portal' => $request->portal,
+            'id4k' => $request->id4k,
+            'mac' => $request->mac
+        ];
+    }
+    else  if ( $plan == 7 ) {
+             MySubscriptionController::sendmail( $email,"7.php",$subid->first()->uniqueid);
+
+    
+       $startdate = $start->format($myformat);
+         $expire = $start->addDays(7);
+         $expiredate = $expire->format($myformat);
+    
+    
+    $dataupdate = [
+       
+            'status' => "Active",
+            'active' => "yes",
+            'trial' => 1,
+            'startdate' => $startdate,
+            'expiredate' => $expiredate,
+            'portal' => $request->portal,
+            'id4k' => $request->id4k,
+            'mac' => $request->mac
+        ];
+    }
+    else  if ( $plan == 15 ) {
+             MySubscriptionController::sendmail( $email,"15.php",$subid->first()->uniqueid);
+
+    
+       $startdate = $start->format($myformat);
+         $expire = $start->addDays(15);
+         $expiredate = $expire->format($myformat);
+    
+    
+    $dataupdate = [
+       
+            'status' => "Active",
+            'active' => "yes",
+            'trial' => 1,
+            'startdate' => $startdate,
+            'expiredate' => $expiredate,
+            'portal' => $request->portal,
+            'id4k' => $request->id4k,
+            'mac' => $request->mac
+        ];
+    }
+        $subid->update($dataupdate);
         $jobid = MyJob::where('subid', '=', $id)->update([
             'completed' => "yes"
         ]);
+
+        return $jobid;
+    
+    
+
 
         return $jobid;
     }

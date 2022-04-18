@@ -21,6 +21,7 @@ const YsfHome = () => {
     const [ibo, setibo] = useState(false);
     const [net, setnet] = useState(false);
     const [set, setset] = useState(false);
+    const [fire, setfire] = useState(false);
     const [ott4k, set4k] = useState(false);
     const [tvmate, settvmate] = useState(false);
     const [magbox, setmag] = useState(false);
@@ -75,6 +76,7 @@ const YsfHome = () => {
         setset(true)
         setsmarters(true)
         setgse(true)
+        setfire(true)
     }
     const windows = () => {
         reset()
@@ -129,7 +131,7 @@ const YsfHome = () => {
 
 
            <nav  className="max-w-[1500px] w-full  lg:px-5 mx-auto py-5 flex gap-8 xl:gap-28 items-center justify-between relative transition-all duration-300 ease-out">
- <a className='underline'  href="#" className="w-68 h-full object-cover px-5 lg:px-0"> <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-full h-auto object-cover inline-block" /></a>
+ <br/> <a className='underline'  href="#" className="w-68 h-full object-cover px-5 lg:px-0"> <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-full h-auto object-cover inline-block" /></a>
   <div onClick={(e) => {
         //stop clicks getting to the overlay
         e.stopPropagation();
@@ -137,7 +139,7 @@ const YsfHome = () => {
     
     <div className='grid grid-cols-2'>
     <div className="w-full ml-3 flex justify-center lg:hidden ">
-      <a className='underline'  href="#"><img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-40 h-auto object-contain " /></a>
+      <br/> <a className='underline'  href="#"><img src="https://res.cloudinary.com/luxiptv/image/upload/v1646744485/fastt_1_nrmss1.png" alt="logo" className="w-40 h-auto object-contain " /></a>
     </div>
 
     <div onClick={ () => toggleNav() } className="w-full flex justify-center lg:hidden ">
@@ -172,12 +174,20 @@ const YsfHome = () => {
  
 <div>
   <header className="max-w-[1050px] w-full mx-auto px-5">
-    <div className="flex flex-col items-center pt-[107px]">
+
+    <div className="flex flex-col items-center ">
       <h1 className="heading-primary text-white mb-8">HOW TO INSTALL IPTV</h1>
+
+      
+    <div class="rounded-md bg-blue-50 p-4 max-w-lg mx-auto mb-4"><div class="flex"><div class="flex-shrink-0"><svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg></div><div class="ml-3"><h3 class="text-sm font-medium text-blue-800">Info &amp; Guideline</h3><div class="mt-2 text-sm text-blue-700"><ul class="list-disc pl-5 space-y-1"><li>Double Click on your device , Example : Smart Tv and scroll down , you'll find tutorials and available apps .</li><li>There are many available apps for each device , keep scrolling down so you see the other ones . </li></ul></div></div></div></div>
+    
       <h2 className="text-primary-text text-center font-bold">
       Before beginning , you'll need M3u playlist link / Xtream codes api ( Username , Password and Url) or a Portal Url , we provide them immediately after the payment .    </h2>
       <button onClick={() => redirect()}  class="bg-green-600 mt-3  w-full px-4 py-4 text-white text-xl uppercase mb-4 mx-auto">  Click to order a subscription</button>
     </div>
+
+
+
   </header>
   <section className="max-w-[1100px] w-full px-5 mx-auto mt-20 p">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 thumbnails" aria-label="Carousel Pagination">
@@ -246,8 +256,198 @@ const YsfHome = () => {
 
 <section   >
 
+<section className= {fire ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
-<section className= {smartiptv ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<div className="tab-1 px-8 py-10">
+
+
+  <h1 className="text2xl md:text-[35px] text-black-10 font-semibold">Let's install downloader App first !</h1>
+  <p className="text-secondary text-black-10">
+  We'll need to install downloader app , so we can add iptv apps to the Firestick .
+
+
+
+</p>
+<p className="text-secondary text-black-10">
+    
+<br />
+
+<br />
+Step 1: Open Firestick Home
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650290623/Install-IPTV-on-firestick-on-firestick-1_gpf1ef.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 2: Click on the Settings icon
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650290835/Install-IPTV-on-firestick-on-firestick-2_oxfvc7.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 3: Select My Fire TV
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650290872/Install-IPTV-on-firestick-on-firestick-3_k9bbe2.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 4: Choose Developer Options
+
+  <br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650290907/Install-IPTV-on-firestick-on-firestick-4_w7ojos.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 5: Click on Apps from Unknown Sources
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650290937/Install-IPTV-on-firestick-on-firestick-5_s5cgip.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 6: Click on Turn On
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291663/Install-IPTV-on-firestick-on-firestick-6_lhiqpk.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 7: Navigate back to the home page and select the Find menu
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291610/Install-IPTV-on-firestick-on-firestick-7_kadlpz.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 8: Click on the Search option
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291563/Install-IPTV-on-firestick-on-firestick-8_zw00xn.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />
+Step 9: Type “Downloader” and select it from the list
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291538/Install-IPTV-on-firestick-on-firestick-9_y4ogow.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 10: Select the Downloader icon
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291513/Install-IPTV-on-firestick-on-firestick-10_k2wiry.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 11: Click on “Download” and wait for the app to install
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291470/Install-IPTV-on-firestick-on-firestick-11_rixed8.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 12: Wait until the download is completed
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291417/Install-IPTV-on-firestick-on-firestick-12_ij6cxj.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 13: Click on Open to run the Downloader app
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291374/Install-IPTV-on-firestick-on-firestick-13_rewxkp.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 14: Once the downloader opens, click on Allow
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291131/Install-IPTV-on-firestick-on-firestick-14_m0c65v.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 15: A prompt will be displayed, click OK
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291099/Install-IPTV-on-firestick-on-firestick-15_lv3ocy.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+
+<br />Step 16: By default Home tab would be open with a text box displayed on the right side
+
+
+<br />
+
+<img  
+
+src="https://res.cloudinary.com/luxiptv/image/upload/v1650291048/Install-IPTV-on-firestick-on-firestick-16_fshxxr.png" alt="img" className=" group-hover:text-white transition-all duration-300" />
+<br />
+<br />
+Once the downloader app is installed , you'll be able to add any iptv app in apk format , scroll down to see the availabe apps !
+
+
+</p>
+
+
+
+</div>
+
+
+</section>
+
+
+
+<section className= {smartiptv ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} src="https://res.cloudinary.com/luxiptv/image/upload/v1650145918/smart-iptv-300x300_mvykpa.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
@@ -260,7 +460,7 @@ const YsfHome = () => {
     
 <br />
 <br />
-1- Head over to SIPTV site : <a className='underline'  href='https://siptv.app/mylist/'>https://siptv.app/mylist/</a>
+1- Head over to SIPTV site : <br/> <a className='underline'  href='https://siptv.app/mylist/'>https://siptv.app/mylist/</a>
 <br />
 <br />
 2- Add your device’s MAC address in the MAC field. 
@@ -284,7 +484,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 </section>
 
-<section className= {ibo ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {ibo ? "  max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -297,7 +497,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650147040/FlWUkcJbDFetE2E
   the IBO PLAYER app is available for many different operating systems and devices:
   
 <br />
-Play store Android and Android TV: <a className='underline'   href='https://play.google.com/store/apps/details?id=com.shoum.iboplayer
+Play store Android and Android TV: <br/> <a className='underline'   href='https://play.google.com/store/apps/details?id=com.shoum.iboplayer
 '>https://play.google.com/store/apps/details?id=com.shoum.iboplayer
 </a>
 <br />LG smart TV (WebOS): available in LG content store
@@ -320,7 +520,7 @@ The steps to follow to configure your IPTV subscription on IBO Player:<br />
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650147309/iboniptvplayer_szrrgo.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
 2. On your PC, your mobile or any other device on which you have access to a browser, open the following address : 
-<a className='underline' href='https://iboiptv.com/device/login' >https://iboiptv.com/device/login </a> 
+<br/> <a className='underline' href='https://iboiptv.com/device/login' >https://iboiptv.com/device/login </a> 
 <br />
 <br />
 3. Enter Device ID and Device Key, confirm humanity check and click Login. Follow the images below to add your M3U Playlist Link<br />
@@ -345,7 +545,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 
 </section>
-<section className= {net ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {net ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -360,7 +560,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650147763/0_nbv5s0.jpg" a
 
   
 <br />
-Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=com.net.iptv
+Play store Android and Android TV: <br/> <a className='underline'  href='https://play.google.com/store/apps/details?id=com.net.iptv
 '>https://play.google.com/store/apps/details?id=com.net.iptv
 </a>
 <br />LG smart TV (WebOS): available in LG content store
@@ -383,7 +583,7 @@ Open application and you can see the MAC address , If not , navigate to info ( b
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650147900/install-netIPTV-01-1030x579-1_einkdb.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
 2. Upload M3u link via portal
-Open app upload page via browser :  <a className='underline'  href='https://netiptv.eu/Upload'>https://netiptv.eu/Upload</a> <br/>
+Open app upload page via browser :  <br/> <a className='underline'  href='https://netiptv.eu/Upload'>https://netiptv.eu/Upload</a> <br/>
 Enter your  mac address  in MAC / APP ID field under UPLOAD m3U/URL row,  Then press Add List
 
 <img  
@@ -415,7 +615,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 
 </section>
-<section className= {set ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {set ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -430,7 +630,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650148493/images_xza5yz.p
 
   
 <br />
-Play store Android and Android TV: <a className='underline'  href='https://install-iptv.com/setiptv'>https://install-iptv.com/setiptv</a>
+Play store Android and Android TV: <br/> <a className='underline'  href='https://install-iptv.com/setiptv'>https://install-iptv.com/setiptv</a>
 
 
 
@@ -456,7 +656,7 @@ Open application and you can see the MAC address , If not , navigate to info ( b
 src="https://res.cloudinary.com/luxiptv/image/upload/v1650148672/install-set-iptv-01-1030x579-1_h7tqq9.jpg" alt="img" className=" group-hover:text-white transition-all duration-300" />
 <br />
 2. Navigate to SET IPTV web portal
-Open the set IPTV upload page via browser : <a className='underline'  href='https://cms.manage-setiptv.com/set.app'> https://cms.manage-setiptv.com/set.app</a> <br/> and Choose Playlist link method :
+Open the set IPTV upload page via browser : <br/> <a className='underline'  href='https://cms.manage-setiptv.com/set.app'> https://cms.manage-setiptv.com/set.app</a> <br/> and Choose Playlist link method :
 <br />
 Enter Mac address
 Enter your Set IPTV mac address  in TV MAC field
@@ -484,7 +684,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 </section>
 
-<section className= {ott4k ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {ott4k ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={128} height={92} 
@@ -499,12 +699,12 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650151619/NlqmmxD6lY2xyEk
 
   
 <br />
-Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=com.ott4knewapp.app
+Play store Android and Android TV: <br/> <a className='underline'  href='https://play.google.com/store/apps/details?id=com.ott4knewapp.app
 '>https://play.google.com/store/apps/details?id=com.ott4knewapp.app
 </a>
 
 
-<br />iOS App: <a className='underline'  href='https://apps.apple.com/tr/app/4k-ott/id1552914260'>https://apps.apple.com/tr/app/4k-ott/id1552914260</a>
+<br />iOS App: <br/> <a className='underline'  href='https://apps.apple.com/tr/app/4k-ott/id1552914260'>https://apps.apple.com/tr/app/4k-ott/id1552914260</a>
 
 <br />Amazon Fire TV (APK version) : bit.ly/3vkVnp6
 
@@ -532,7 +732,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650151725/xfR5VGlgVLtXxgc
 
 
 </section>
-<section className= {tvmate ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {tvmate ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -547,7 +747,7 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650149564/images_ifg3g8.p
 
   
 <br />
-Play store Android and Android TV: <a className='underline'  href='https://play.google.com/store/apps/details?id=ar.tvplayer.tv
+Play store Android and Android TV: <br/> <a className='underline'  href='https://play.google.com/store/apps/details?id=ar.tvplayer.tv
 '>https://play.google.com/store/apps/details?id=ar.tvplayer.tv
 </a>
 
@@ -600,7 +800,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 
 </section>
-<section className= {formul ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {formul ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
     
@@ -646,7 +846,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 </section>
 
-<section className= {magbox ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {magbox ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
     
@@ -704,7 +904,7 @@ After the box is restarted, wait until the TV screen shows the channels.
 
 </section>
 
-<section className= {smarters ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {smarters ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -721,14 +921,14 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650150442/yriw_rw_4r1MPmx
 
   
 <br />
-Download for Android devices : <a className='underline'  href='https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US'>https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US</a>
-Download for iOS devices : <a className='underline'  href='https://apps.apple.com/us/app/iptv-smarters-player/id1383614816'>https://apps.apple.com/us/app/iptv-smarters-player/id1383614816</a>
+Download for Android devices : <br/> <a className='underline'  href='https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US'>https://play.google.com/store/apps/details?id=com.nst.smartersplayer&hl=fr&gl=US</a>
+Download for iOS devices : <br/> <a className='underline'  href='https://apps.apple.com/us/app/iptv-smarters-player/id1383614816'>https://apps.apple.com/us/app/iptv-smarters-player/id1383614816</a>
 <br />
-Download for MAC OS X : <a className='underline'  href='https://www.iptvsmarters.com/download?download=mac'>https://www.iptvsmarters.com/download?download=mac</a>
+Download for MAC OS X : <br/> <a className='underline'  href='https://www.iptvsmarters.com/download?download=mac'>https://www.iptvsmarters.com/download?download=mac</a>
 <br />
 Download for Amazon Fire TV stick : iptvsmarters.com/smarters.apk
 <br />
-Download for Windows PC : <a className='underline'  href='https://www.iptvsmarters.com/download?download=windows'>https://www.iptvsmarters.com/download?download=windows</a>
+Download for Windows PC : <br/> <a className='underline'  href='https://www.iptvsmarters.com/download?download=windows'>https://www.iptvsmarters.com/download?download=windows</a>
 <br />
 
 
@@ -781,7 +981,7 @@ Once the app is restarted, it should load up all the channels from your IPTV pro
 
 </section>
 
-<section className= {gse ? "py-[26px]   px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12  box-shadow" : "hidden"} >
+<section className= {gse ? "max-w-[1100px] w-11/12  mx-auto mt-20 p   lg:px-14 bg-white rounded-lg        mb-12  box-shadow" : "hidden"} >
 
 <div className="tab-1 px-8 py-10">
 <img  width={94} height={62} 
@@ -797,12 +997,12 @@ src="https://res.cloudinary.com/luxiptv/image/upload/v1650149977/GSE-SMART-IPTV-
 
   
 <br />
-Download for Android devices : <a className='underline'  href='https://play.google.com/store/apps/details?id=com.gsetech.smartiptv'>https://play.google.com/store/apps/details?id=com.gsetech.smartiptv</a>
+Download for Android devices : <br/> <a className='underline'  href='https://play.google.com/store/apps/details?id=com.gsetech.smartiptv'>https://play.google.com/store/apps/details?id=com.gsetech.smartiptv</a>
 
 <br/>
-Download for iOS devices : <a className='underline'  href='https://apps.apple.com/app/gse-smart-iptv/id1028734023'>https://apps.apple.com/app/gse-smart-iptv/id1028734023</a>
+Download for iOS devices : <br/> <a className='underline'  href='https://apps.apple.com/app/gse-smart-iptv/id1028734023'>https://apps.apple.com/app/gse-smart-iptv/id1028734023</a>
 <br />
-Download for MAC OS X : <a className='underline'  href='https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12'>https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12</a>
+Download for MAC OS X : <br/> <a className='underline'  href='https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12'>https://apps.apple.com/se/app/gse-smart-iptv-pro/id1293083751?l=en&mt=12</a>
 <br />
 Download for Amazon Fire TV stick : gsesmartiptv.com/dlgseiptv.php
 <br />

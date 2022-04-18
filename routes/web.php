@@ -82,6 +82,10 @@ Route::get('/activatem3u', function () {
     return Inertia::render('ActivateM3u');
 });
 
+Route::get('/activatemag', function () {
+    return Inertia::render('ActivateMag');
+});
+
 Route::get('/payment', function () {
     return Inertia::render('Payment');
 });

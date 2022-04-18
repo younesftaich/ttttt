@@ -72,12 +72,12 @@ const activate = async () => {
         "status" : "Active",
         "active" : "yes",
         "id4k" : id4k,
-        "username" : username,
-        "password" : password
+        "mac" : username,
+        "portal" : password
          };
          console.log(subdata)
 
-    let res1 = await axios.post('https://fast-iptv.shop/activatem3u/'+id, subdata)
+    let res1 = await axios.post('https://fast-iptv.shop/activatemag/'+id, subdata)
          console.log(res1.data)
 
 }
@@ -192,13 +192,13 @@ Today
             </div>
 
             <div className="relative mt-4">
-              <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">4K Username</label>
+              <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">4K Mac</label>
               <input value={username}
                               onChange={changeuser} name='email' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
             </div>
 
             <div className="relative mt-4">
-              <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">4K Password</label>
+              <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">4K Portal</label>
               <input value={password}
                               onChange={changepass} name='email' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="" />
             </div>

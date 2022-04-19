@@ -6,6 +6,7 @@ use App\Http\Controllers\MyUserController;
 use App\Http\Controllers\MyJobController;
 use App\Http\Controllers\MySubscriptionController;
 use App\Models\MySubscription;
+use Illuminate\Support\Facades\Http;
 
 use App\Http\Controllers\MyM3uController;
 use Carbon\Carbon;
@@ -39,6 +40,44 @@ Route::get('yesterday', function() {
     return MySubscriptionController::yesterday();
 });
 
+
+Route::get('coinbase', function() {
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://api.commerce.coinbase.com/checkouts/");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$post = array(
+    "name" => "E currency exchange",
+    "description" => "Exchange for Whatever",
+    "local_price" => array(
+        'amount' => '0.01',
+        'currency' => 'USD'
+    ),
+    "pricing_type" => "fixed_price",
+    "requested_info" => ["email"]
+);
+
+$post = json_encode($post);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+curl_setopt($ch, CURLOPT_POST, 1);
+
+$headers = array();
+$headers[] = "Content-Type: application/json";
+$headers[] = "X-Cc-Api-Key: c79591c8-9dee-4737-a3c3-7600127892ee";
+$headers[] = "X-Cc-Version: 2018-03-22";
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
+curl_close ($ch);
+$response = json_decode($result);
+
+print_r  ($response->data->id );
+
+
+
+
+
+});
 Route::get('carondate', function() {
  
 
@@ -246,6 +285,10 @@ Route::get('emailid/{email}', function($email) {
 Route::post('createsub', function(Request $request) {
    
     return MySubscriptionController::createsub($request);
+});
+Route::post('createsub2', function(Request $request) {
+   
+    return MySubscriptionController::createsub2($request);
 });
 Route::post('extend', function(Request $request) {
    

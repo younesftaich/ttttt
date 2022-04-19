@@ -24,6 +24,94 @@ class MySubscriptionController extends Controller
         return MySubscription::all();
 
     }
+
+public function coinbase (){
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://api.commerce.coinbase.com/checkouts/");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$post = array(
+    "name" => "E currency exchange",
+    "description" => "Instantly activated and delivered via email .",
+    "local_price" => array(
+        'amount' => '0.01',
+        'currency' => 'USD'
+    ),
+    "pricing_type" => "fixed_price",
+    "requested_info" => ["email"]
+);
+
+$post = json_encode($post);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+curl_setopt($ch, CURLOPT_POST, 1);
+
+$headers = array();
+$headers[] = "Content-Type: application/json";
+$headers[] = "X-Cc-Api-Key: c79591c8-9dee-4737-a3c3-7600127892ee";
+$headers[] = "X-Cc-Version: 2018-03-22";
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
+curl_close ($ch);
+$response = json_decode($result);
+return $response->data->id ;
+print_r  ($response->data->id );
+
+
+
+
+}
+
+
+     public function createsub2(Request $request)
+    {
+        $userid1 = MyUserController::createuser($request);
+        $userid =  json_decode($userid1)->id;
+        $exist =  json_decode($userid1)->exist;
+   		$paypal = "AVAVAj85C435w1EbPcYTmWIShWhhZvekY7b0sHeG6ieGXoGK7UAVhAf6_ag6kF_Od30h3H-sjIM9Uq1r";
+		$coinbase = MySubscriptionController::coinbase();
+   //  
+     MySubscriptionController::sendmail( $request->email,"friendly.php",$request->uniqueid);
+     
+     $mysub = MySubscription::create([
+            'uniqueid' => $request->uniqueid,
+            'userid' => $userid,
+            'plan' => $request->plan,
+            'type' => $request->type,
+            'paypaltoken' => $paypal,
+            'coinbase' => $coinbase,
+            'status' => $request->status,
+            'channels' => $request->channels,
+            'currency' => $request->currency,
+            'placeddate' => $request->placeddate,
+            'packagename' => $request->packagename,
+            'packageprice' => $request->packageprice,
+            'proxyprice' => $request->proxyprice,
+            'adultprice' => $request->adultprice,
+            'total' => $request->total,
+            'mac' => $request->mac
+        ]);
+    
+     
+     if ( $exist == 0 ) {
+           $usermail =  json_decode($userid1)->email;
+           $token =  json_decode($userid1)->token;
+          $x = array(
+        'email' => MySubscriptionController::verifyemail( $usermail,$token),
+        'subid' => $mysub->id,
+    );
+    return (object) $x;
+     
+              
+
+
+     }
+           $x = array(
+        'subid' => $mysub->id,
+    );
+    return (object) $x;
+    }
 public function convertUtf8( $value ) {
     return mb_detect_encoding($value, mb_detect_order(), true) === 'UTF-8' ? $value : mb_convert_encoding($value, 'UTF-8');
 }

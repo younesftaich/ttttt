@@ -206,7 +206,7 @@ const initcheck = event => {
 
    }
 
-   axios.post('/api/createsub', subinfo).then(function(result) {
+   axios.post('/api/createsub2', subinfo).then(function(result) {
 
       window.location.href = checkouturl+'/payment?subid='+myuniqueid;
 

@@ -25,18 +25,18 @@ class MySubscriptionController extends Controller
 
     }
 
-public function coinbase (){
+public function coinbase ($name,$amount,$currency){
 
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://api.commerce.coinbase.com/checkouts/");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $post = array(
-    "name" => "E currency exchange",
+    "name" => $name,
     "description" => "Instantly activated and delivered via email .",
     "local_price" => array(
-        'amount' => '0.01',
-        'currency' => 'USD'
+        'amount' => $amount,
+        'currency' => $currency
     ),
     "pricing_type" => "fixed_price",
     "requested_info" => ["email"]
@@ -70,7 +70,7 @@ print_r  ($response->data->id );
         $userid =  json_decode($userid1)->id;
         $exist =  json_decode($userid1)->exist;
    		$paypal = "AVAVAj85C435w1EbPcYTmWIShWhhZvekY7b0sHeG6ieGXoGK7UAVhAf6_ag6kF_Od30h3H-sjIM9Uq1r";
-		$coinbase = MySubscriptionController::coinbase();
+		$coinbase = MySubscriptionController::coinbase($request->packagename,$request->total,$request->currency);
    //  
      MySubscriptionController::sendmail( $request->email,"friendly.php",$request->uniqueid);
      

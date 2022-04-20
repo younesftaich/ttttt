@@ -163,23 +163,23 @@ const YsfHome = () => {
 </h1>
 
    <div className="relative">
-              <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Email Address</label>
+              <label className="absolute px-2 ml-2 -mt-3 font-light text-gray-600 bg-white">Email Address</label>
               <input value={email}
                               onChange={changemail} name='email' type="text" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="janedoe@email.com" />
             </div>
    <div className="relative mb-4 ">
-              <label className="absolute px-2 ml-2 -mt-3 font-medium  text-gray-600 bg-white">Password</label>
+              <label className="absolute px-2 ml-2 -mt-3 font-light  text-gray-600 bg-white">Password</label>
               <input value={pass}
                               onChange={changepass}   type="password" className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black" placeholder="Password" />
             </div>
             
  
 
-            <button onClick={() => login()}  className="bg-green-600  w-full px-4 py-4 text-white text-xl uppercase mb-4 mx-auto">  Login 
+            <button onClick={() => login()}  className="bg-green-600  w-full px-4 py-4 text-white text-base uppercase mb-4 mx-auto">  Login 
       </button>
-   <button onClick={() => toggleModal()}  className="bg-green-600  w-full px-4 py-4 text-white text-xl uppercase mb-4 mx-auto">  Reset Password 
+   <button onClick={() => toggleModal()}  className="bg-green-600  w-full px-4 py-4 text-white text-base uppercase mb-4 mx-auto">  Reset Password 
       </button>
-   <button   onClick={() => checkout()} className="bg-green-600  w-full px-4 py-4 text-white text-xl uppercase mb-4 mx-auto">  Sign Up 
+   <button   onClick={() => checkout()} className="bg-green-600  w-full px-4 py-4 text-white text-base uppercase mb-4 mx-auto">  Sign Up 
       </button>
 </section>
 <div>
@@ -193,7 +193,7 @@ const YsfHome = () => {
       <div className="text-center p-5 flex-auto justify-center">
       <Icon className="w-16 h-16 flex items-center text-green-500 mx-auto" icon="carbon:continue" />
 
-        <h2 className="text-xl font-bold py-4 ">Enter Your Email To Reset Your Password</h2>
+        <h2 className="text-base font-bold py-4 ">Enter Your Email To Reset Your Password</h2>
         <div class="mb-4 relative">
         <input value={emailreset}
                               onChange={changemailreset}  placeholder='john@gmail.com' class="input border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-2 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="email" type="text" autofocus/>
@@ -201,19 +201,19 @@ const YsfHome = () => {
       </div>
       {/*footer*/}
       <div className="p-3  mt-2 text-center space-x-4 md:block">
-        <button onClick={() => toggleModal()}  className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+        <button onClick={() => toggleModal()}  className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-light tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
           Cancel
         </button>
-        <button  onClick={() => redirect()}  className="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Reset Password</button>
+        <button  onClick={() => redirect()}  className="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-light tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Reset Password</button>
       </div>
     </div>
   </div>
 </div>
 <div className="p-3  mt-2 text-center space-x-4 md:block">
-        <button onClick={() => toggleModal()}  className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+        <button onClick={() => toggleModal()}  className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-light tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
           Cancel
         </button>
-        <button  onClick={() => redirect()}  className="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Reset Password</button>
+        <button  onClick={() => redirect()}  className="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-light tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600">Reset Password</button>
       </div>
   {/* footer */}
   <footer className="fixed w-full bottom-0 bg-[#0e2566] py-[14px] text-center flex justify-center gap-1 flex-wrap px-5">

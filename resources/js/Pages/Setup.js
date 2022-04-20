@@ -42,6 +42,7 @@ const YsfHome = () => {
         setset(false)
         setsmarters(false)
         setgse(false)
+        setfire(false)
 
         
         myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });

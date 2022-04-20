@@ -53,7 +53,7 @@ const gotopage  = () => {
 
 const deletesub = async (unique) => {
     let res1 = await axios.get('/api/deletesub/'+unique)
-         console.log(res1.data)
+         alert(res1.data)
 
 }
 
@@ -229,9 +229,6 @@ Today
                 </thead>
                 <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-gray-700 dark:text-gray-400">
               
-        <MyTr email= {"sub.userid"} package={"sub.packagename"}  total={"sub.packageprice"}  
-        status={"sub.status"} date={"sub.placeddate"} username={"sub.username"}  id={"sub.id"}  unique={"PQZUV6wHjpR80gc"} type={"mag"}   ></MyTr>
-     
             {
   Object.values(subs).map((sub, index) => {
     

@@ -70,6 +70,7 @@ function Checkout(props) {
    const [currpack,setCurrentPack] = useState(1)
    const [extrachecked,setExtraCheck] = useState(false)
    const [proxychecked,setProxyCheck] = useState(false)
+   const [myott,setott] = useState(false)
    const [couponcode,setCoupon] = useState("")
    const [realproxytotal,setRealProxyTotal] = useState("0.00")
    const [realextratotal,setRealExtraTotal] = useState("0.00")
@@ -361,6 +362,7 @@ const Month12 = () => {
     const parsed = queryString.parse(location.search);
     const couponparam = parsed.coupon;
     const emailparam = parsed.email;
+    const ott = parsed.ott;
 
     useEffect(() => {
     
@@ -368,6 +370,11 @@ const Month12 = () => {
       if (couponparam){
          
          setCoupon(couponparam)
+      }
+      if (ott){
+         
+         
+         setott(true)
       }
       if (emailparam){
          console.log(emailparam)
@@ -377,7 +384,7 @@ const Month12 = () => {
 
       }
       
-    }, [couponparam,emailparam]);
+    }, [couponparam,emailparam,ott]);
   
 
    return (
@@ -587,6 +594,9 @@ const Month12 = () => {
                               name="email" id="email" className="appearance-none block w-full bg-grey-lighter text-grey-darker border-2 border-grey-lighter rounded-lg h-10 px-4" placeholder="Please enter your email" /></div>
                            </div>
                       
+
+                           <div className= {myott ? '' : 'hidden'}  >
+
                            <div className=" rounded-md px-3    ">
                               <label htmlFor="subscription_type" className="block  font-medium text-gray-900"> Device type</label>
                               
@@ -612,6 +622,44 @@ value={Device} onChange={handleSelectChange}
  onChange={e => setMac(e.target.value)}
  placeholder="Optional : Only For Mag Box / STB EMU" className="appearance-none block w-full bg-grey-lighter text-grey-darker border-2 border-grey-lighter rounded-lg h-10 px-4" type="text" name="mac"  style={{outline: 'none'}} />
 </div>
+                           </div>
+
+                           </div>
+
+                           
+                           <div className=" rounded-md px-3    ">
+                              <label htmlFor="subscription_type" className="block  font-medium text-gray-900"> Payment Method</label>
+        
+        
+                              <div className="grid grid-cols-2 gap-3">{/**/}
+                              
+                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2">
+                                 
+                              <div className="flex-1 flex space-x-3 items-center">
+                                 
+
+                              <img className="h-6 rounded-md overflow-hidden" src="https://netflytv.com/svg/credit-card.svg" alt="Cryptocurrency Image" />
+                              
+
+
+                                 <p className="type">Card</p></div>
+                              
+                              
+                              <input name="payment_method" type="radio" defaultValue="credit_card" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div>
+                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2">
+                                 
+                              <div className="flex-1 flex space-x-3 items-center">
+                                 
+
+                                 <Icon icon="fa:cc-paypal" color="#418cf7" width="32" />
+   
+                                 <p className="type">Paypal</p></div>
+                              
+                              
+                              <input name="payment_method" type="radio" defaultValue="credit_card" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div>
+                              
+                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 border-blue-300 bg-blue-100"><div className="flex-1 flex space-x-3 items-center"><img className="h-6 rounded-md overflow-hidden" src="https://netflytv.com/svg/coin.svg" alt="Cryptocurrency Image" /><p className="type">Cryptocurrency</p></div><input name="payment_method" type="radio" defaultValue="cryptocurrency" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div></div>
+
                            </div>
                         </div>
                         
@@ -713,7 +761,8 @@ value={Device} onChange={handleSelectChange}
 
 
 
-                     <div className="shadow-md bg-white py-4 px-6 rounded-xl cursor-pointer  md:block">
+                   <div className= {myott ? '' : 'hidden'}  >
+                   <div className=" shadow-md bg-white py-4 px-6 rounded-xl cursor-pointer  md:block">
                         <h2 className="text-xl font-semibold mb-2">Your Plan Includes:</h2>
                         <ul className="pl-3 leading-8">
                        <li>
@@ -728,6 +777,10 @@ value={Device} onChange={handleSelectChange}
           <li>- Adult Channels - Switch ON/OFF</li>
                         </ul>
                      </div>
+
+                   </div>
+
+                     
                   </div>
                </div>
             </div>

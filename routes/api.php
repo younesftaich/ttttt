@@ -41,6 +41,21 @@ Route::get('yesterday', function() {
 });
 
 
+Route::get('stripe', function() {
+    
+$stripe = new \Stripe\StripeClient('sk_test_51KpvmbLTd53hu3rfOy7IeUTrqJBytsZrpxcZj14CZW7bVVsj8sXgEt80Yg4dCorXycA2eEYeL70PykNbZ3EG9rlo008Lral8V0');
+
+$res = $stripe->paymentIntents->create([
+    'amount' => 2000,
+    'currency' => 'usd',
+    'payment_method_types' => ['card'],
+  ]);
+echo $res->id;
+
+});
+
+
+
 Route::get('coinbase', function() {
 
 $ch = curl_init();

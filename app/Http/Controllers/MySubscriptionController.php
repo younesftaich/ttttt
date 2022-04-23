@@ -80,7 +80,7 @@ print_r  ($response->data->id );
             'userid' => $userid,
             'plan' => $request->plan,
             'type' => $request->type,
-            'paypaltoken' => $paypal,
+            'paypaltoken' => env('PAYPAL'),
             'stripetoken' => $request->stripetoken,
             'coinbase' => $coinbase,
             'status' => $request->status,

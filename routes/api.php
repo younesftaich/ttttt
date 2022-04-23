@@ -33,7 +33,11 @@ Route::get('myusers', function() {
 
 Route::get('stripe/{price}/{currency}', function($price,$currency) {
     
-$stripe = new \Stripe\StripeClient('sk_test_51KpvmbLTd53hu3rfOy7IeUTrqJBytsZrpxcZj14CZW7bVVsj8sXgEt80Yg4dCorXycA2eEYeL70PykNbZ3EG9rlo008Lral8V0');
+
+    
+
+
+$stripe = new \Stripe\StripeClient(env('STRIPE_SK'));
 
 $res = $stripe->paymentIntents->create([
     'amount' => $price*100,

@@ -20,7 +20,7 @@ import {
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_51KpvmbLTd53hu3rfITu6msMqPABAd1MdpYwNBVSWgWF6i8ncayCRRO6SDkwd2OfnYppcBLJNNbZRXR52HlRvpdyr009CNiPmEN');
+const stripePromise = loadStripe(process.env.MIX_STRIPEPK);
 
 import axios from "axios";
 
@@ -190,7 +190,8 @@ function Checkout(props) {
 };
 
 
-    const checkouturl = process.env.MIX_DIGITAL
+const checkouturl = process.env.MIX_DIGITAL
+const stripepk = process.env.MIX_STRIPEPK
   const myRef = React.createRef();
   const myRef2 = React.createRef();
  const mydate = Date().toLocaleString();

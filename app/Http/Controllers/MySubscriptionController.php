@@ -803,7 +803,10 @@ if ( $code != 200){
     {
             $mysub = MySubscription::where('stripetoken', '=', $stripetoekn);
     
-    return MySubscriptionController::paidsub($mysub->first()->uniqueid);
+     MySubscriptionController::paidsub($mysub->first()->uniqueid);
+     return redirect('/completed');
+
+
 
     }
     public function paidsub($uniqueid)

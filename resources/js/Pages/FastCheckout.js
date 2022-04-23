@@ -147,7 +147,7 @@ function Checkout(props) {
           
           elements,
           confirmParams: {
-            return_url: "https://example.com/order/123/complete/",
+            return_url: checkouturl+"/api/stripepaid/",
           },
         });
     
@@ -840,7 +840,7 @@ const Month12 = () => {
 
          localStorage.setItem('isott', 1);
 
-         Inertia.get('/checkout', {  }, { replace: true })
+         Inertia.get('/checkout?coupon='+couponparam, {  }, { replace: true })
 
       }
       if (emailparam){
@@ -857,9 +857,7 @@ const Month12 = () => {
     useEffect(() => {
      
       let isott = localStorage.getItem('isott', 1);
-      console.log("ott : " +isott)
       if ( isott ){
-         console.log("ott enabled")
                   setott(true)
 
       }

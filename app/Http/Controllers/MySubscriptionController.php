@@ -46,9 +46,10 @@ $post = json_encode($post);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 curl_setopt($ch, CURLOPT_POST, 1);
 
+$coinbasetoken = env('COINBASE');
 $headers = array();
 $headers[] = "Content-Type: application/json";
-$headers[] = "X-Cc-Api-Key: c79591c8-9dee-4737-a3c3-7600127892ee";
+$headers[] = "X-Cc-Api-Key: $coinbasetoken";
 $headers[] = "X-Cc-Version: 2018-03-22";
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 

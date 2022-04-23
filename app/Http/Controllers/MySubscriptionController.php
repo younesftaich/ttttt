@@ -936,7 +936,7 @@ if ( $code != 200){
 
        $userid2 =  MyUserController::userexist($request->email);
 
-       $subs = MySubscription::where('userid', '=', $userid2)->get();
+       $subs = MySubscription::where('userid', '=', $userid2)::where('paid', '=', 'yes')->get();
        $numItems = count($subs);
        $i = 0;
 

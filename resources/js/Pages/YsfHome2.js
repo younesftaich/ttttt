@@ -105,9 +105,11 @@ const YsfHome = () => {
 
        </div>
       <div class= "md:order-first	 flex flex-col items-center ">
-           <h1 class="heading-primary text-white mb-8">The #1 Most Trusted IPTV Provider
+           <h1 class="heading-primary text-white mb-8">The Best Winning Product Resource, Made For Dropshippers
+
 </h1>
-           <h2 class="text-primary-text text-left">Get access to all your favorite TV shows, Sport Channels, Series & Movies, Cartoon and Children, News, Music, Documentary and even more!.
+           <h2 class="text-primary-text text-left">Gain access to the largest & fastest growing collection of winning products
+
 
 
                <div class="flex flex-col gap-2 items-left mt-11">
@@ -129,19 +131,23 @@ const YsfHome = () => {
    <section className="py-[26px] px-5 lg:px-14 bg-white rounded-lg max-w-[1050px] w-full mx-auto mt-12 mb-12 grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-8  md:gap-5 box-shadow">
   <div className="flex flex-col sm:flex-row items-center gap-3 lg:gap-5">
     <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646568571/pllay-button_klqan5.svg" alt="play" className="w-11 lg:w-14 h-11 lg:h-14 object-contain" />
-    <p className="text-secondary">31K + TV <br /> Channels</p>
+    <p className="text-secondary">Social Proof 
+ <br /> Ads</p>
   </div>
   <div className="flex flex-col sm:flex-row items-center gap-3 lg:gap-5">
     <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646568596/multi-user_vs0ppe.svg" alt="play" className="w-11 1g:w-14 h-11 lg:h-14 object-contain" />
-    <p className="text-secondary">Mutli Users  <br /> Access</p>
+    <p className="text-secondary">Amazon 
+  <br /> Analysis</p>
   </div>
   <div className="flex flex-col sm:flex-row items-center gap-3 lg:gap-5">
     <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646568615/fhd_d117tj.svg" alt="play" className="w-11 lg:w-14 h-11 lg:h-14 object-contain" />
-    <p className="text-secondary">4K &amp; FHD  <br /> Quality</p>
+    <p className="text-secondary">Key 
+  <br /> Indicators</p>
   </div>
   <div className="flex flex-col sm:flex-row items-center gap-3 lg:gap-5">
-    <img src="https://res.cloudinary.com/luxiptv/image/upload/v1646568634/danger_a5jboy.svg" alt="play" className="w-11 lg:w-14 h-11 lg:h-14 object-contain" />
-    <p className="text-secondary">Anti-Buffer™   <br /> 7.3.1</p>
+  <svg className="svg-inline--fa fa-megaphone fa-w-18 h-12 w-12 text-2xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="megaphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg><path fill="currentColor" d="M32 176c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32 11.38 0 20.9-6.28 26.57-15.22l106.99 32.3c-3.35 9.76-5.56 20.04-5.56 30.92 0 52.94 43.06 96 96 96 44.49 0 81.66-30.57 92.5-71.7L480 448V64L58.57 191.22C52.9 182.28 43.38 176 32 176zm179.29 190.88l91.47 27.61C297.95 415.92 278.85 432 256 432c-26.47 0-48-21.53-48-48 0-6.05 1.24-11.79 3.29-17.12zM560 32h-32c-8.84 0-16 7.16-16 16v416c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V48c0-8.84-7.16-16-16-16z" /></svg>
+
+    <p className="text-secondary">Trending   <br /> Data</p>
   </div>
 </section>
 <div>

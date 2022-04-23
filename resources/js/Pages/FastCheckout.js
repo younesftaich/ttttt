@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import moment from 'moment';
+import { sitename } from "./utils"
 import { Icon } from '@iconify/react';
 import { Head } from '@inertiajs/inertia-react'
 import queryString from 'query-string'
@@ -865,13 +866,14 @@ const Month12 = () => {
 
        
    }, []);
+
   
 
    return (
       <div className="font-press-start  ">
         
         <Head>
-<title>Checkout - FAST IPTV SHOP</title>
+<title>Checkout  </title>
 </Head>
        
 

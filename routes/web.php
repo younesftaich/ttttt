@@ -67,11 +67,26 @@ Route::get('/how-to-install-iptv-on-android-smart-tv', function () {
 
 //Home2
 Route::get('/', function () {
-    return Inertia::render('YsfHome2');
+    return Inertia::render('YsfHome3');
 });
 
 Route::get('/channels', function () {
     return Inertia::render('YsfChannels');
+});
+
+Route::get('/faqs', function () {
+    return Inertia::render('Faq3');
+});
+Route::get('/pricing-plans', function () {
+    return Inertia::render('Pricing3');
+});
+
+Route::get('/privacy-policy', function () {
+    return Inertia::render('Privacy3');
+});
+
+Route::get('/return-and-cancellation-policy', function () {
+    return Inertia::render('Cancel3');
 });
 
 Route::get('/countries', function () {
@@ -95,7 +110,7 @@ Route::get('/payment', function () {
 });
 
 Route::get('/login', function () {
-    return Inertia::render('YsfLogin');
+    return Inertia::render('Login3');
 });
 
 Route::get('/account', function () {

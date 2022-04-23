@@ -30,6 +30,21 @@ Route::get('myusers', function() {
     return MyUserController::home();
 });
 
+
+Route::get('stripe/{price}/{currency}', function($price,$currency) {
+    
+$stripe = new \Stripe\StripeClient('sk_test_51KpvmbLTd53hu3rfOy7IeUTrqJBytsZrpxcZj14CZW7bVVsj8sXgEt80Yg4dCorXycA2eEYeL70PykNbZ3EG9rlo008Lral8V0');
+
+$res = $stripe->paymentIntents->create([
+    'amount' => $price*100,
+    'currency' => $currency,
+    'payment_method_types' => ['card'],
+  ]);
+echo $res->client_secret;
+
+});
+
+
 Route::get('today', function() {
     return MySubscriptionController::today();
 });
@@ -39,21 +54,6 @@ Route::get('lastmonth', function() {
 Route::get('yesterday', function() {
     return MySubscriptionController::yesterday();
 });
-
-
-Route::get('stripe', function() {
-    
-$stripe = new \Stripe\StripeClient('sk_test_51KpvmbLTd53hu3rfOy7IeUTrqJBytsZrpxcZj14CZW7bVVsj8sXgEt80Yg4dCorXycA2eEYeL70PykNbZ3EG9rlo008Lral8V0');
-
-$res = $stripe->paymentIntents->create([
-    'amount' => 2000,
-    'currency' => 'usd',
-    'payment_method_types' => ['card'],
-  ]);
-echo $res->id;
-
-});
-
 
 
 Route::get('coinbase', function() {
@@ -122,6 +122,11 @@ echo "<br>";
 
 
 
+});
+
+
+Route::get('stripepaid/', function(Request $request) {
+return MySubscriptionController::stripepaid($request->payment_intent_client_secret);
 });
 
 Route::get('userexist/{email}', function($email) {

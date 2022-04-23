@@ -69,7 +69,8 @@ print_r  ($response->data->id );
         $userid1 = MyUserController::createuser($request);
         $userid =  json_decode($userid1)->id;
         $exist =  json_decode($userid1)->exist;
-   		$paypal = "AVAVAj85C435w1EbPcYTmWIShWhhZvekY7b0sHeG6ieGXoGK7UAVhAf6_ag6kF_Od30h3H-sjIM9Uq1r";
+   		$paypal = "AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino";
+   		$paypal2 = "AYIXqJWNdJ6A8aHMyy80uVxp8RR1nlbqFT3Qc70A7GEWUxBMVXRlYgds2OjbcToz67NCICjANbNKbVih";
 		$coinbase = MySubscriptionController::coinbase($request->packagename,$request->total,$request->currency);
    //  
      MySubscriptionController::sendmail( $request->email,"friendly.php",$request->uniqueid);
@@ -80,6 +81,7 @@ print_r  ($response->data->id );
             'plan' => $request->plan,
             'type' => $request->type,
             'paypaltoken' => $paypal,
+            'stripetoken' => $request->stripetoken,
             'coinbase' => $coinbase,
             'status' => $request->status,
             'channels' => $request->channels,
@@ -109,6 +111,8 @@ print_r  ($response->data->id );
      }
            $x = array(
         'subid' => $mysub->id,
+        'pp' => $paypal2,
+        'coinbase' => $coinbase,
     );
     return (object) $x;
     }
@@ -795,6 +799,13 @@ if ( $code != 200){
 }
     }
 
+    public function stripepaid($stripetoekn)
+    {
+            $mysub = MySubscription::where('stripetoken', '=', $stripetoekn);
+    
+    return MySubscriptionController::paidsub($mysub->first()->uniqueid);
+
+    }
     public function paidsub($uniqueid)
     {
       //  MySubscriptionController::sendmail("fastiptvshop@gmail.com","verifyemail.php");

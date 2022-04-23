@@ -4,6 +4,22 @@ import { Icon } from '@iconify/react';
 import { Head } from '@inertiajs/inertia-react'
 import queryString from 'query-string'
 import { Inertia } from '@inertiajs/inertia'
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import {PaymentElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements} from '@stripe/react-stripe-js';
+import { PayPalButton } from "react-paypal-button-v2";
+import {
+   PayPalScriptProvider,
+   PayPalButtons,
+   usePayPalScriptReducer
+} from "@paypal/react-paypal-js";
+
+
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe('pk_test_51KpvmbLTd53hu3rfITu6msMqPABAd1MdpYwNBVSWgWF6i8ncayCRRO6SDkwd2OfnYppcBLJNNbZRXR52HlRvpdyr009CNiPmEN');
 
 import axios from "axios";
 
@@ -24,16 +40,165 @@ const getCurrentDate = () => {
  }
 
 
+
+
 function Checkout(props) {
+
+  
+  // This values are the props in the UI
+  const amount = "2";
+  const style = {"layout":"vertical","shape":"pill","label":"pay"};
+  
+  // Custom component to wrap the PayPalButtons and handle currency changes
+  const ButtonWrapper = ({ currency, showSpinner }) => {
+      // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
+      // This is the main reason to wrap the PayPalButtons in a new component
+      const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+  
+      useEffect(() => {
+          dispatch({
+              type: "resetOptions",
+              value: {
+                  ...options,
+                  currency: currency,
+              },
+          });
+      }, [currency, showSpinner]);
+  
+  
+      return (<>
+              { (showSpinner && isPending) && <div className="spinner" /> }
+              <PayPalButtons
+                  style={style}
+                  disabled={false}
+                  forceReRender={[lastprice, currency, style]}
+                  fundingSource={undefined}
+                  locale = "en_GB"
+                  
+            
+                  
+                  createOrder={(data, actions) => {
+                     
+                      return actions.order
+                          .create({
+                              purchase_units: [
+                                  {
+                                      amount: {
+                                       currency_code: currency,
+                                        
+
+                                          value: lastprice,
+                                      },
+                                    
+                                      
+                                  },
+                                  
+                                 
+                                  
+                              ],
+                              application_context: {
+                                  shipping_preference: "NO_SHIPPING",
+                              }
+                          })
+                          .then((orderId) => {
+                              // Your code here after create the order
+                              return orderId;
+                          });
+                  }}
+                  onApprove={function (data, actions) {
+                      return actions.order.capture().then(function () {
+                          // Your code here after capture the order
+                          let checkresult =  axios.get('https://fast-iptv.shop/api/paidsub/'+currentunique).then(response => response.data);   
+                          checkresult.then(function(result) {
+                           
+                              window.location.href = "/completed";
+                      
+                          })
+                      });
+                  }}
+              />
+          </>
+      );
+  }
+
+   
+ const Stripe = (props) => {
+
+   const CheckoutForm = () => {
+      console.log(props.token)
+      const stripe = useStripe();
+      const elements = useElements();
+    
+      const handleSubmit = async (event) => {
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
+    
+        if (!stripe || !elements) {
+          // Stripe.js has not yet loaded.
+          // Make sure to disable form submission until Stripe.js has loaded.
+          return;
+        }
+    
+        const result = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+
+          
+          elements,
+          confirmParams: {
+            return_url: "https://example.com/order/123/complete/",
+          },
+        });
+    
+        if (result.error) {
+          // Show error to your customer (for example, payment details incomplete)
+          console.log(result.error.message);
+        } else {
+          // Your customer will be redirected to your `return_url`. For some payment
+          // methods like iDEAL, your customer will be redirected to an intermediate
+          // site first to authorize the payment, then redirected to the `return_url`.
+        }
+      };
+       return (
+         <form onSubmit={handleSubmit}>
+      <PaymentElement />
+
+      <button disabled={!stripe} style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>PAY NOW</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+
+
+
+
+    </form>
+
+       );
+     };
+
+
+   const options = {
+       // passing the client secret obtained from the server
+       clientSecret: props.token,
+     };
+   return (
+       <div className='text-white'>
+           <Elements stripe={stripePromise} options={options}>
+           <CheckoutForm />
+
+   </Elements>
+       </div>
+   );
+};
 
 
     const checkouturl = process.env.MIX_DIGITAL
   const myRef = React.createRef();
   const myRef2 = React.createRef();
  const mydate = Date().toLocaleString();
-  const [loading, setLoading] = useState(false);
+ const [loading, setLoading] = useState(false);
+ const [isStripe, SetStripe] = useState(false);
+ const [isPayPal, setPayPal] = useState(false);
+ const [mytoken, setMyToken] = useState("");
 
-
+ 
   Checkout.getInitialProps = async () => {
     return {};
   };
@@ -63,6 +228,7 @@ function Checkout(props) {
    const [newsub, setNew] = useState(true);
    const [symbol,setSymbol] = useState("£")
    const [proxyprice,setProxy] = useState("0.99")
+   const [pm,setpm] = useState("Stripe")
    const [extra,setExtra] = useState("7.99")
    const [adult,setAdult] = useState(false)
    const [proxytotal,setProxyTotal] = useState("0.99")
@@ -88,20 +254,6 @@ function Checkout(props) {
   const congrats = () => {
    setCoupon("5OFF")
   }
-  const [ip, setIP] = useState('');
-
-  //creating function to load ip address from the API
-  const getData = async () => {
-    const res = await axios.get('https://geolocation-db.com/json/')
-    console.log(res.data);
-    setIP(res.data.IPv4)
-  }
-  
-  useEffect( () => {
-    //passing getData method to the lifecycle method
-    getData()
-
-  }, [])
 
  
 
@@ -156,6 +308,9 @@ let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullY
 
 useEffect(() => {
    coupon()
+   
+   SetStripe(false)
+   setPayPal(false)
  }, [couponcode]);
 
 
@@ -165,11 +320,136 @@ useEffect(() => {
      
      
 }
-const initcheck = event => {
+const initcheck2 = event => {
+
+   if ( myemail == ""){
+      alert("Please enter a valid Email")
+      return false
+   }
+//   alert(currency+lastprice)
+if ( pm == "Stripe"){
+   
+   let stripetoken = ""
+
+   axios.get('/api/stripe/'+lastprice+'/'+currency).then(function(result) {
+
+      SetStripe(true)
+      setMyToken(result.data)
+      stripetoken = result.data
+      setLoading(true)
+
+      var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
+ proxychecked ? myplan = myplan + ' + Proxy Protection' : myplan ;
+
+ var type = ""
+ if (Device == "Mag Box / Formular Z8") {
+   type = "mag"
+ }
+ else {
+   type = "m3u"
+ }
+  var mypack =  extrachecked ? packname+' Subscription Full Package + Extra Connection ' : packname+' Subscription Full Package';
+ proxychecked ? mypack = mypack + ' + Proxy Protection' : mypack ;
+ var myuniqueid = makeid(15);
+
+
+ 
+ var myuniqueid = makeid(15);
+
+ 
+
+ let subinfo = {
+    "email" : myemail,
+    "uniqueid" : myuniqueid,
+    "type" : type,
+    "mac" : mac,
+    "plan":packageid,
+    "placeddate":Date(),
+    "packagename" : myplan,
+    "proxyprice" : "",
+    "adultprice" : "",
+    "paid" : "no",
+    "currency" : currency,
+    "stripetoken" : stripetoken,
+    "status" : "Waiting Payment",
+    "packageprice" : symbol +" " + lastprice + " " + currency,
+    "total" : lastprice
+
+ }
+
+ axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+
+
+  
+
+ } )
+
+
+
+    
+
+   } )
+}
+
+else if( pm == "crypto"){
+   //redirect to https://commerce.coinbase.com/checkout/
+   
+   var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
+   proxychecked ? myplan = myplan + ' + Proxy Protection' : myplan ;
+  
+   var type = ""
+   if (Device == "Mag Box / Formular Z8") {
+     type = "mag"
+   }
+   else {
+     type = "m3u"
+   }
+    var mypack =  extrachecked ? packname+' Subscription Full Package + Extra Connection ' : packname+' Subscription Full Package';
+   proxychecked ? mypack = mypack + ' + Proxy Protection' : mypack ;
+   var myuniqueid = makeid(15);
+  
+  
+   
+   var myuniqueid = makeid(15);
+  
+   
+  
+   let subinfo = {
+      "email" : myemail,
+      "uniqueid" : myuniqueid,
+      "type" : type,
+      "mac" : mac,
+      "plan":packageid,
+      "placeddate":Date(),
+      "packagename" : myplan,
+      "proxyprice" : "",
+      "adultprice" : "",
+      "paid" : "no",
+      "currency" : currency,
+      "status" : "Waiting Payment",
+      "packageprice" : symbol +" " + lastprice + " " + currency,
+      "total" : lastprice
+  
+   }
+  
+   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+
+   window.location.href = 'https://commerce.coinbase.com/checkout/'+result.data.coinbase;
+
+  
+  
+    
+  
+   } )
+}
+
+
+}
+   const initcheck = event => {
 
         setLoading(true)
-   localStorage.setItem('customerid', myemail);
-   var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
+
+        var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
    proxychecked ? myplan = myplan + ' + Proxy Protection' : myplan ;
 
    var type = ""
@@ -183,11 +463,11 @@ const initcheck = event => {
    proxychecked ? mypack = mypack + ' + Proxy Protection' : mypack ;
    var myuniqueid = makeid(15);
 
-   const updatedata = {uniqueid :myuniqueid , placeddate : getCurrentDate(), pack : myplan,ip:ip,  paid : "init checkout " , plan :packageid  ,total : lastprice,currency : currency,mac : mac ,  email : myemail ,wtp : wtp , proxy : proxychecked ? 'yes' : 'no', adult : adult ? 'yes' : 'no' , device : Device, type : type, website : 'fast-iptv.shop'};
- 
-   var myuniqueid = makeid(15);
-   localStorage.setItem('customerid', email);
 
+   
+   var myuniqueid = makeid(15);
+
+   
 
    let subinfo = {
       "email" : myemail,
@@ -247,6 +527,160 @@ useEffect(() => {
  }, []);
 
 
+ const creditcard = () => {
+
+   setPayPal(false)
+   setpm("Stripe")
+   
+ }
+
+ 
+ const [paypaltoken,setPayPalToken] = useState(null)
+ const [coinbasetoken,setCoinbaseToken] = useState(null)
+ const [paypalready,setPayPalReady] = useState(false)
+ const [currentunique,setCurrentUnique] = useState("")
+
+ const paypal = () => {
+    
+   if ( myemail == ""){
+      alert("Please enter a valid Email")
+      return false
+   }
+   SetStripe(false)
+   setPayPal(true)
+   setpm("paypal")
+
+
+   var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
+   proxychecked ? myplan = myplan + ' + Proxy Protection' : myplan ;
+  
+   var type = ""
+   if (Device == "Mag Box / Formular Z8") {
+     type = "mag"
+   }
+   else {
+     type = "m3u"
+   }
+    var mypack =  extrachecked ? packname+' Subscription Full Package + Extra Connection ' : packname+' Subscription Full Package';
+   proxychecked ? mypack = mypack + ' + Proxy Protection' : mypack ;
+   var myuniqueid = makeid(15);
+
+   setCurrentUnique(myuniqueid)
+  
+  
+   
+  
+   
+   
+  
+   let subinfo = {
+      "email" : myemail,
+      "uniqueid" : myuniqueid,
+      "type" : type,
+      "mac" : mac,
+      "plan":packageid,
+      "placeddate":Date(),
+      "packagename" : myplan,
+      "proxyprice" : "",
+      "adultprice" : "",
+      "paid" : "no",
+      "currency" : currency,
+      
+      "status" : "Waiting Payment",
+      "packageprice" : symbol +" " + lastprice + " " + currency,
+      "total" : lastprice
+  
+   }
+  
+   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+
+   console.log(result.data.pp)
+   setPayPalToken(result.data.pp)
+
+  
+  
+    
+  
+   } )
+
+   
+   
+ }
+
+
+ 
+ 
+ useEffect(() => {
+   if ( paypaltoken != null ){
+      console.log(paypaltoken)
+      setPayPalReady(true)   }
+   
+ }, [paypaltoken,currency]);
+
+ const crypto = () => {
+
+   SetStripe(false)
+   
+   setPayPal(false)
+   setpm("crypto")
+
+   
+
+
+   var myplan =  extrachecked ? packname+'  Subscription Full Package + Extra Connection ' : packname+'  Subscription Full Package';
+   proxychecked ? myplan = myplan + ' + Proxy Protection' : myplan ;
+  
+   var type = ""
+   if (Device == "Mag Box / Formular Z8") {
+     type = "mag"
+   }
+   else {
+     type = "m3u"
+   }
+    var mypack =  extrachecked ? packname+' Subscription Full Package + Extra Connection ' : packname+' Subscription Full Package';
+   proxychecked ? mypack = mypack + ' + Proxy Protection' : mypack ;
+   var myuniqueid = makeid(15);
+  
+  
+   
+   var myuniqueid = makeid(15);
+  
+   
+  
+   let subinfo = {
+      "email" : myemail,
+      "uniqueid" : myuniqueid,
+      "type" : type,
+      "mac" : mac,
+      "plan":packageid,
+      "placeddate":Date(),
+      "packagename" : myplan,
+      "proxyprice" : "",
+      "adultprice" : "",
+      "paid" : "no",
+      "currency" : currency,
+      
+      "status" : "Waiting Payment",
+      "packageprice" : symbol +" " + lastprice + " " + currency,
+      "total" : lastprice
+  
+   }
+  
+   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+
+   console.log(result.data.coinbase)
+   setCoinbaseToken(result.data.coinbase)
+
+  
+  
+    
+  
+   } )
+
+   
+
+   
+ }
 
 
 const toggleExtraCheck = () => {
@@ -290,6 +724,10 @@ const toggleProxyCheck = () => {
    setPackage("1")
    setCurrentPack(1)
    updateprice()
+   SetStripe(false)
+   
+   setPayPal(false)
+
 }
 
 useEffect(() => {
@@ -307,6 +745,10 @@ const Month6 = () => {
    setPackage("6")
    setCurrentPack(6)
    updateprice()
+   
+   SetStripe(false)
+   
+   setPayPal(false)
    myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
  
 
@@ -322,6 +764,9 @@ const Month3 = () => {
    setPackage("3")
    setCurrentPack(3)
    updateprice()
+   SetStripe(false)
+   
+   setPayPal(false)
    myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -335,6 +780,9 @@ const Month12 = () => {
    setPackage("12")
    setCurrentPack(12)
    updateprice()
+   SetStripe(false)
+   
+   setPayPal(false)
    myRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
 }
   
@@ -343,6 +791,12 @@ const Month12 = () => {
      setSymbol("€")
      setCoeff(1.07)
      setSvg("https://res.cloudinary.com/luxiptv/image/upload/v1646680539/eur_zmc6cl.svg")
+     
+   SetStripe(false)
+   
+   setPayPal(false)
+
+   setpm("")
    }    
    const toggleUsd = () => {
  
@@ -350,12 +804,20 @@ const Month12 = () => {
       setSymbol("$")
       setSvg("https://res.cloudinary.com/luxiptv/image/upload/v1646680584/usd_j7e7hf.svg")
       
+   SetStripe(false)
+   
+   setpm("")
+   setPayPal(false)
      setCoeff(1.32)
     }   
     const toggleGbp = () => {
       setCurrency("GBP")
       setSymbol("£")
       setSvg("https://res.cloudinary.com/luxiptv/image/upload/v1646680671/gbp_1_aqaywq.svg")
+      SetStripe(false)
+      
+   setpm("")
+      setPayPal(false)
       setCoeff(1)
     }    
 
@@ -374,7 +836,11 @@ const Month12 = () => {
       if (ott){
          
          
-         setott(true)
+
+         localStorage.setItem('isott', 1);
+
+         Inertia.get('/checkout', {  }, { replace: true })
+
       }
       if (emailparam){
          console.log(emailparam)
@@ -385,6 +851,20 @@ const Month12 = () => {
       }
       
     }, [couponparam,emailparam,ott]);
+
+    
+    useEffect(() => {
+     
+      let isott = localStorage.getItem('isott', 1);
+      console.log("ott : " +isott)
+      if ( isott ){
+         console.log("ott enabled")
+                  setott(true)
+
+      }
+
+       
+   }, []);
   
 
    return (
@@ -439,7 +919,7 @@ const Month12 = () => {
                   
                   
 
-                  className = {packname == "1 Month" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1'}
+                  className = {packname == "1 Month" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1' : ' border-2  rounded-xl  text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1'}
                   
                   >
           <div className="hidden md:block">
@@ -633,38 +1113,50 @@ value={Device} onChange={handleSelectChange}
         
                               <div className="grid grid-cols-2 gap-3">{/**/}
                               
-                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2">
+                          
+                          
+                              <div  onClick={ () => creditcard() } className= {pm == "Stripe" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "} >
                                  
                               <div className="flex-1 flex space-x-3 items-center">
                                  
 
-                              <img className="h-6 rounded-md overflow-hidden" src="https://netflytv.com/svg/credit-card.svg" alt="Cryptocurrency Image" />
-                              
-
-
-                                 <p className="type">Card</p></div>
-                              
-                              
-                              <input name="payment_method" type="radio" defaultValue="credit_card" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div>
-                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2">
-                                 
-                              <div className="flex-1 flex space-x-3 items-center">
-                                 
-
-                                 <Icon icon="fa:cc-paypal" color="#418cf7" width="32" />
+                                 <Icon icon="bi:credit-card-2-back-fill" color="#418cf7" width="32" />
    
-                                 <p className="type">Paypal</p></div>
+                                 <p className="type">Credit Card</p></div>
                               
                               
-                              <input name="payment_method" type="radio" defaultValue="credit_card" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div>
-                              
-                              <div className="cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 border-blue-300 bg-blue-100"><div className="flex-1 flex space-x-3 items-center"><img className="h-6 rounded-md overflow-hidden" src="https://netflytv.com/svg/coin.svg" alt="Cryptocurrency Image" /><p className="type">Cryptocurrency</p></div><input name="payment_method" type="radio" defaultValue="cryptocurrency" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full" /></div></div>
+                          </div>
+
+                              <div   onClick={ () => paypal() } className= {pm == "paypal" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "}>
+                                 
+                                 <div className="flex-1 flex space-x-3 items-center">
+                                    
+   
+                                    <Icon icon="fa:cc-paypal" color="#418cf7" width="32" />
+      
+                                    <p className="type">PayPal</p></div>
+                                 
+                                 
+                             </div>
+
+                                 <div   onClick={ () => crypto() } className= {pm == "crypto" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "}>
+                                 
+                                 <div className="flex-1 flex space-x-3 items-center">
+                                    
+   
+                                    <Icon icon="logos:bitcoin" color="#418cf7" width="32" />
+      
+                                    <p className="type">Cryptocurrency</p></div>
+                                 
+                                 
+                             </div>
+                              </div>
 
                            </div>
                         </div>
                         
                         <div className="space-y-2">
-                           <div className="flex bg-indigo-50 rounded-md py-3 px-5"><span className="flex-1">{packname} Pass - All Channels & Vod</span><span>{symbol} {pricetotal} </span></div>
+                           <div className="flex bg-indigo-50 rounded-md py-3 px-5"><span className="flex-1">{packname}  {myott ? "Pass - All Channels & Vod" : ""} </span><span>{symbol} {pricetotal} </span></div>
                            <div class="space-x-4 ">
 
                     <div 
@@ -703,7 +1195,78 @@ value={Device} onChange={handleSelectChange}
                         </div>
                         
                         <div>
-                        <button style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>{loading ? 'LOADING... PLEASE WAIT' : 'CONTINUE'}</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+<div className={isStripe ? '' : 'hidden'}  >
+
+
+{ isStripe ? <Stripe token = {mytoken} /> : <></> }
+</div>
+
+
+<div className={pm == "paypal" ? '' : 'hidden'}  >
+
+<div style={{ maxWidth: "750px", minHeight: "200px" }}>
+            <PayPalScriptProvider
+                options={{
+                    "client-id": "AYIXqJWNdJ6A8aHMyy80uVxp8RR1nlbqFT3Qc70A7GEWUxBMVXRlYgds2OjbcToz67NCICjANbNKbVih",
+                    components: "buttons",
+                    currency: "GBP"
+                }}
+            >
+				<ButtonWrapper
+                    currency={currency}
+                    showSpinner={false}
+                />
+			</PayPalScriptProvider>
+		</div>
+
+{/* 
+{ pm == "paypal" && paypalready  ? (
+   
+                <PayPalButton
+       amount = {lastprice}
+      shippingPreference="NO_SHIPPING"
+       options={{
+        currency: currency,
+         clientId: paypaltoken
+       }}
+       
+       style={{
+        shape: "pill",
+        label :"pay"
+      }}
+       
+ 
+
+
+onSuccess={(details, data) => {
+   console.log("myuniqueid : "+ currentunique)
+
+  
+    
+    let checkresult =  axios.get('https://fast-iptv.shop/api/paidsub/'+currentunique).then(response => response.data);   
+    checkresult.then(function(result) {
+     
+        window.location.href = "/completed";
+
+    })
+
+    
+
+  
+      
+
+}}
+/>
+) : ( <h1>Loading ...</h1>)} */}
+
+</div>
+
+<div className={isStripe || pm == "paypal" ? 'hidden' : ''}  >
+<button style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>CONTINUE</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+</div>
+
+
+                        
                            <p className="justify-center flex items-center text-gray-500  mt-3">
                               <span className="pr-3">
                                  <svg width="24" height="22">

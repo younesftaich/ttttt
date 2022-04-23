@@ -18,12 +18,12 @@ const YsfHome3 = () => {
     <div className="w-2/3 sm:w-3/4 md:w-3/5 pt-10">
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 px-8 lg:mt-24 ">
         The Best 
-        <span className=" mr-4 ml-4 text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-800 ">Winning Product</span>
+        <span className="  text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-800 ">Winning Product</span>
         Resource, Made For
-        <span className=" mr-4 ml-4 text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-800 ">Dropshippers</span>
+        <span className="  text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-800 ">Dropshippers</span>
       </h1>
-      <h2 className="w-2/3 mr-4 ml-4 sm:w-3/4 md:w-3/5 mt-6 text-2xl md:text-3xl lg:text-4xl font-light text-gray-600 mx-auto ">Gain access to the largest &amp; fastest growing collection of winning products</h2>
-      <h3 className="mt-8 text-lg md:text-xl  mr-4 ml-4 lg:text-1xl uppercase text-gray-400 ">Join 20k+ happy customers and grab your free account today.</h3>
+      <h2 className="w-2/3  sm:w-3/4 md:w-3/5 mt-6 text-2xl md:text-3xl lg:text-4xl font-light text-gray-600 mx-auto ">Gain access to the largest &amp; fastest growing collection of winning products</h2>
+      <h3 className="mt-8 text-lg md:text-xl   lg:text-1xl uppercase text-gray-400 ">Join 20k+ happy customers and grab your free account today.</h3>
     </div>
     <div className="mt-12">
       <a href="/pricing-plans" className="w-full bg-purple-800 hover:bg-purple-900 hover:shadow-lg text-white py-3 px-6  uppercase text-xl">

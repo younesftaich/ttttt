@@ -1208,7 +1208,7 @@ value={Device} onChange={handleSelectChange}
 <div style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider
                 options={{
-                    "client-id": "AYIXqJWNdJ6A8aHMyy80uVxp8RR1nlbqFT3Qc70A7GEWUxBMVXRlYgds2OjbcToz67NCICjANbNKbVih",
+                    "client-id": paypaltoken,
                     components: "buttons",
                     currency: "GBP"
                 }}
@@ -1220,7 +1220,11 @@ value={Device} onChange={handleSelectChange}
 			</PayPalScriptProvider>
 		</div>
 
+
+
+</div>
 {/* 
+
 { pm == "paypal" && paypalready  ? (
    
                 <PayPalButton
@@ -1258,9 +1262,7 @@ onSuccess={(details, data) => {
 
 }}
 />
-) : ( <h1>Loading ...</h1>)} */}
-
-</div>
+) : ( <h1>Loading ...</h1>)}  */}
 
 <div className={isStripe || pm == "paypal" ? 'hidden' : ''}  >
 <button style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>CONTINUE</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>

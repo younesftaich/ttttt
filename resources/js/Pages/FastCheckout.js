@@ -109,7 +109,7 @@ function Checkout(props) {
                   onApprove={function (data, actions) {
                       return actions.order.capture().then(function () {
                           // Your code here after capture the order
-                          let checkresult =  axios.get('https://fast-iptv.shop/api/paidsub/'+currentunique).then(response => response.data);   
+                          let checkresult =  axios.get('/api/paidsub/'+currentunique).then(response => response.data);   
                           checkresult.then(function(result) {
                            
                               window.location.href = "/completed";
@@ -379,7 +379,7 @@ if ( pm == "Stripe"){
 
  }
 
- axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+ axios.post('/api/createsub2', subinfo).then(function(result) {
 
 
   
@@ -434,7 +434,7 @@ else if( pm == "crypto"){
   
    }
   
-   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+   axios.post('/api/createsub2', subinfo).then(function(result) {
 
    window.location.href = 'https://commerce.coinbase.com/checkout/'+result.data.coinbase;
 
@@ -594,7 +594,7 @@ useEffect(() => {
   
    }
   
-   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+   axios.post('/api/createsub2', subinfo).then(function(result) {
 
    console.log(result.data.pp)
    setPayPalToken(result.data.pp)
@@ -668,7 +668,7 @@ useEffect(() => {
   
    }
   
-   axios.post('https://fast-iptv.shop/api/createsub2', subinfo).then(function(result) {
+   axios.post('/api/createsub2', subinfo).then(function(result) {
 
    console.log(result.data.coinbase)
    setCoinbaseToken(result.data.coinbase)
@@ -1244,7 +1244,7 @@ onSuccess={(details, data) => {
 
   
     
-    let checkresult =  axios.get('https://fast-iptv.shop/api/paidsub/'+currentunique).then(response => response.data);   
+    let checkresult =  axios.get('/api/paidsub/'+currentunique).then(response => response.data);   
     checkresult.then(function(result) {
      
         window.location.href = "/completed";

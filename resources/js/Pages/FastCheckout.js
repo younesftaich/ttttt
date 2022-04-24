@@ -593,10 +593,10 @@ useEffect(() => {
       "total" : lastprice
   
    }
+
   
    axios.post('/api/createsub2', subinfo).then(function(result) {
 
-   console.log(result.data.pp)
    setPayPalToken(result.data.pp)
 
   
@@ -1203,7 +1203,11 @@ value={Device} onChange={handleSelectChange}
 </div>
 
 
+
 <div className={pm == "paypal" ? '' : 'hidden'}  >
+
+{ pm == "paypal" && paypalready  ? (
+   
 
 <div style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider
@@ -1220,6 +1224,10 @@ value={Device} onChange={handleSelectChange}
 			</PayPalScriptProvider>
 		</div>
 
+
+
+   
+) : ( <h1>Loading ...</h1>)}  
 
 
 </div>
@@ -1262,7 +1270,8 @@ onSuccess={(details, data) => {
 
 }}
 />
-) : ( <h1>Loading ...</h1>)}  */}
+) : ( <h1>Loading ...</h1>)}   */}
+
 
 <div className={isStripe || pm == "paypal" ? 'hidden' : ''}  >
 <button style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>CONTINUE</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>

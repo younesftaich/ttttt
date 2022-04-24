@@ -112,7 +112,7 @@ print_r  ($response->data->id );
      }
            $x = array(
         'subid' => $mysub->id,
-        'pp' => $paypal2,
+        'pp' => env('PAYPAL'),
         'coinbase' => $coinbase,
     );
     return (object) $x;

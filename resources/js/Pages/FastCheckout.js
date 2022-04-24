@@ -1143,7 +1143,7 @@ value={Device} onChange={handleSelectChange}
                               <label htmlFor="subscription_type" className="block  font-medium text-gray-900"> Payment Method</label>
         
         
-                              <div className="grid grid-cols-2 gap-3">{/**/}
+                              <div className="grid grid-cols-1 gap-3">{/**/}
                               
                           <div className= {stripeenabled ? "" : "hidden" } >
                           

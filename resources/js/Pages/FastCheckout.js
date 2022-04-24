@@ -26,20 +26,6 @@ import axios from "axios";
 
 
 
-const getCurrentDate = () => {
-   return moment().format("YYYY-MM-DD");
-  }
-  function makeid(length) {
-   var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   var charactersLength = characters.length;
-   for ( var i = 0; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-  }
-  return result;
- }
-
 
 
 
@@ -164,7 +150,7 @@ function Checkout(props) {
          <form onSubmit={handleSubmit}>
       <PaymentElement />
 
-      <button disabled={!stripe} style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>PAY NOW</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+      <button disabled={!stripe}  onClick={ () => initcheck2() } className="mx-auto bg-youssef flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>PAY NOW</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
 
 
 
@@ -192,9 +178,43 @@ function Checkout(props) {
 
 const checkouturl = process.env.MIX_DIGITAL
 const stripepk = process.env.MIX_STRIPEPK
+const stripebool = parseInt(process.env.MIX_STRIPE_ENABLED)
+const paypalbool = parseInt(process.env.MIX_PAYPAL_ENABLED)
+const coinbasebool = parseInt(process.env.MIX_COINBASE_ENABLED)
   const myRef = React.createRef();
   const myRef2 = React.createRef();
  const mydate = Date().toLocaleString();
+
+ 
+ const [paypalenabled, enablepaypal] = useState(true);
+ const [stripeenabled, enablestripe] = useState(true);
+ const [coinbaseneabled, enablecoinbase] = useState(true);
+
+
+
+ 
+useEffect(() => {
+   enablepaypal(paypalbool)
+   enablecoinbase(coinbasebool)
+   enablestripe(stripebool)
+
+
+   console.log(paypalbool)
+   console.log(coinbasebool)
+   console.log(stripebool)
+
+   if ( !stripebool) {
+      console.log('stripe disabled')
+      setpm("")
+   }
+ }, []);
+
+
+ let mypack1 = [11.99,11.99]
+ let mypack3 = [8.33,24.99]
+ let mypack6 = [6.99,41.99]
+ let mypack12 = [5.49,64.99]
+
  const [loading, setLoading] = useState(false);
  const [isStripe, SetStripe] = useState(false);
  const [isPayPal, setPayPal] = useState(false);
@@ -705,13 +725,13 @@ const toggleProxyCheck = () => {
 
   
   const pack = ["pricepermonth","extrapermonth","proxypermonth","pricetotal","extratotal","proxytotal"]
-  const pack1 = [Number.parseFloat(9.99*coeff).toFixed(2),Number.parseFloat(6.99*coeff).toFixed(2),Number.parseFloat(1.99*coeff).toFixed(2) ,Number.parseFloat(9.99*coeff).toFixed(2) ,Number.parseFloat(6.99*coeff).toFixed(2) ,Number.parseFloat(1.99*coeff).toFixed(2) ];
+  const pack1 = [Number.parseFloat(mypack1[0]*coeff).toFixed(2),Number.parseFloat(6.99*coeff).toFixed(2),Number.parseFloat(1.99*coeff).toFixed(2) ,Number.parseFloat(mypack1[1]*coeff).toFixed(2) ,Number.parseFloat(6.99*coeff).toFixed(2) ,Number.parseFloat(1.99*coeff).toFixed(2) ];
 
   
-  const pack3 = [Number.parseFloat(8.33*coeff).toFixed(2),Number.parseFloat(5.99*coeff).toFixed(2) ,Number.parseFloat(1.33*coeff).toFixed(2) ,Number.parseFloat(24.99*coeff).toFixed(2) ,Number.parseFloat(17.97*coeff).toFixed(2) ,Number.parseFloat(3.99*coeff).toFixed(2) ];
+  const pack3 = [Number.parseFloat(mypack3[0]*coeff).toFixed(2),Number.parseFloat(5.99*coeff).toFixed(2) ,Number.parseFloat(1.33*coeff).toFixed(2) ,Number.parseFloat(mypack3[1]*coeff).toFixed(2) ,Number.parseFloat(17.97*coeff).toFixed(2) ,Number.parseFloat(3.99*coeff).toFixed(2) ];
 
-  const pack6 = [Number.parseFloat(5.83*coeff).toFixed(2),Number.parseFloat(3.99*coeff).toFixed(2) ,Number.parseFloat(1.29*coeff).toFixed(2) ,Number.parseFloat(34.99*coeff).toFixed(2) ,Number.parseFloat(23.94*coeff).toFixed(2) ,Number.parseFloat(7.74*coeff).toFixed(2) ];
-  const pack12 = [Number.parseFloat(4.58*coeff).toFixed(2),Number.parseFloat(2.99*coeff).toFixed(2) ,Number.parseFloat(0.99*coeff).toFixed(2) ,Number.parseFloat(54.99*coeff).toFixed(2) ,Number.parseFloat(35.88*coeff).toFixed(2) ,Number.parseFloat(11.88*coeff).toFixed(2) ];
+  const pack6 = [Number.parseFloat(mypack6[0]*coeff).toFixed(2),Number.parseFloat(3.99*coeff).toFixed(2) ,Number.parseFloat(1.29*coeff).toFixed(2) ,Number.parseFloat(mypack6[1]*coeff).toFixed(2) ,Number.parseFloat(23.94*coeff).toFixed(2) ,Number.parseFloat(7.74*coeff).toFixed(2) ];
+  const pack12 = [Number.parseFloat(mypack12[0]*coeff).toFixed(2),Number.parseFloat(2.99*coeff).toFixed(2) ,Number.parseFloat(0.99*coeff).toFixed(2) ,Number.parseFloat(mypack12[1]*coeff).toFixed(2) ,Number.parseFloat(35.88*coeff).toFixed(2) ,Number.parseFloat(11.88*coeff).toFixed(2) ];
 
   
   Number.parseFloat().toFixed(2)
@@ -912,7 +932,7 @@ const Month12 = () => {
           
             <div ></div>
             <div className="max-w-6xl mx-auto pt-8 px-4 sm:px-6 lg:px-8 pb-6">
-               <div  className="flex space-x-4 items-center py-12"><span className="text-white  h-7 px-3 rounded-lg inline-flex justify-center items-center" style={{background: 'rgb(55, 211, 72)', outline: 'none'}}>Step 1</span><span className="font-semibold md:text-2xl text-xl">Choose Your Plan</span></div>
+               <div  className="flex space-x-4 items-center py-12"><span className="text-white bg-youssef  h-7 px-3 rounded-lg inline-flex justify-center items-center"  >Step 1</span><span className="font-semibold md:text-2xl text-xl">Choose Your Plan</span></div>
 
                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-10 plan-container">
         <div 
@@ -921,20 +941,20 @@ const Month12 = () => {
                   
                   
 
-                  className = {packname == "1 Month" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1' : ' border-2  rounded-xl  text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1'}
+                  className = {packname == "1 Month" ? ' border-4 border-youssef rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1' : ' border-2  rounded-xl  text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-1'}
                   
                   >
           <div className="hidden md:block">
-            <div className="text-right relative -top-1 -right-1"><span className="bg-green-500 text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
+            <div className="text-right relative -top-1 -right-1"><span className="bg-youssef text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
             <p className="text-2xl mt-3 package-name">1 Month Pass</p>
             <p className="text-6xl font-bold package-price"><span style={{fontSize: '30px'}}>{symbol}</span>{pack1[0]}</p>
             <p className="text-sm package-interval">per month</p>
-            <span className="mt-3 py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save">SAVE 0% </span>
+            <span className="mt-3 py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save">SAVE 0% </span>
             <p className="mt-3 text-xs font-light package-guarantee">7-day money-back guarantee</p>
             <p class="mt-4 mb-3 text-sm package-total-price"> {symbol}{pack1[3]}  billed one time </p>
           </div>
           <div className="px-4 py-5 md:hidden">
-            <span className="absolute py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 0% </span>
+            <span className="absolute py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 0% </span>
             <div className="flex space-x-2 items-center">
              
               <div className="flex-1 text-left">
@@ -954,30 +974,30 @@ const Month12 = () => {
                   
                   
 
-                  className = {packname == "12 Months" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-2' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-2'}
+                  className = {packname == "12 Months" ? ' border-4 border-youssef rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-2' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-2'}
                   
                   >
           <div className="hidden md:block">
-          <div className="absolute bottom-full flex justify-center left-0 w-full pb-3 animate-bounce text-green-500"><span className="px-6 py-1 rounded-full shadow-md bg-gray-50 font-semibold inline-block">50% OFF Today</span><span className="border-gray-50" style={{width: '0px', height: '0px', bottom: '5px', position: 'absolute', borderWidth: '8px 9px 0px', borderLeftStyle: 'solid', borderLeftColor: 'transparent', borderRightStyle: 'solid', borderRightColor: 'transparent', left: '50%', transform: 'translateX(-50%)'}} /></div>
+          <div className="absolute bottom-full flex justify-center left-0 w-full pb-3 animate-bounce text-youssef"><span className="px-6 py-1 rounded-full shadow-md bg-gray-50 font-semibold inline-block">50% OFF Today</span><span className="border-gray-50" style={{width: '0px', height: '0px', bottom: '5px', position: 'absolute', borderWidth: '8px 9px 0px', borderLeftStyle: 'solid', borderLeftColor: 'transparent', borderRightStyle: 'solid', borderRightColor: 'transparent', left: '50%', transform: 'translateX(-50%)'}} /></div>
 
 
             <div className="text-right relative -top-1 -right-1">
-               <span className="bg-green-500 text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
+               <span className="bg-youssef text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
             <p className="text-2xl mt-3 package-name">12 Months Pass</p>
             <p className="text-6xl font-bold package-price"><span style={{fontSize: '30px'}}>{symbol}</span>{pack12[0]}</p>
             <p className="text-sm package-interval">per month</p>
-            <span className="mt-3 py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save">SAVE 50% </span>
+            <span className="mt-3 py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save">SAVE 50% </span>
             <p className="mt-3 text-xs font-light package-guarantee">30-day money-back guarantee</p>
-            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol} {Number.parseFloat(pack12[3]*2).toFixed(2)}</span> {symbol}{pack12[3]}  billed one time </p>
+            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol} {Number.parseFloat(pack12[3]*2).toFixed(2)}</span> {symbol}{pack12[3]}  billed one time </p>
       
           </div>
           <div className="px-4 py-5 md:hidden">
-            <span className="absolute py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 50% - Best Offer</span>
+            <span className="absolute py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 50% - Best Offer</span>
             <div className="flex space-x-2 items-center">
              
               <div className="flex-1 text-left">
                 <p className="package-name">12 Months Pass</p>
-                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol}
+                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol}
                 
                 {Number.parseFloat(pack12[3]*2).toFixed(2)}
                 
@@ -994,27 +1014,27 @@ const Month12 = () => {
                   
                   
 
-                  className = {packname == "3 Months" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3'}
+                  className = {packname == "3 Months" ? ' border-4 border-youssef rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3'}
                   
                   >
           <div className="hidden md:block">
-            <div className="text-right relative -top-1 -right-1"><span className="bg-green-500 text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
+            <div className="text-right relative -top-1 -right-1"><span className="bg-youssef text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
             <p className="text-2xl mt-3 package-name">3 Months Pass</p>
             <p className="text-6xl font-bold package-price"><span style={{fontSize: '30px'}}>{symbol}</span>{pack3[0]}</p>
             <p className="text-sm package-interval">per month</p>
-            <span className="mt-3 py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save">SAVE 15% </span>
+            <span className="mt-3 py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save">SAVE 15% </span>
             <p className="mt-3 text-xs font-light package-guarantee">30-day money-back guarantee</p>
-            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol}{
+            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol}{
             Number.parseFloat(pack3[3]*125/100).toFixed(2)
             }</span> {symbol}{pack3[3]}  billed one time </p>
           </div>
           <div className="px-4 py-5 md:hidden">
-            <span className="absolute py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 15% </span>
+            <span className="absolute py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 15% </span>
             <div className="flex space-x-2 items-center">
              
               <div className="flex-1 text-left">
                 <p className="package-name">3 Months Pass</p>
-                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol}
+                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol}
                 {Number.parseFloat(pack3[3]*125/100).toFixed(2)}
                 
                 </span> {symbol}{pack3[3]}  billed one time </p>
@@ -1030,28 +1050,28 @@ const Month12 = () => {
                   
                   
 
-                  className = {packname == "6 Months" ? ' border-4 border-green-400 rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-4'}
+                  className = {packname == "6 Months" ? ' border-4 border-youssef rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-3' : ' border-2  rounded-xl text-center cursor-pointer relative bg-white transition duration-200 select-none md:order-none order-4'}
                   
                   >
           <div className="hidden md:block">
-            <div className="text-right relative -top-1 -right-1"><span className="bg-green-500 text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
+            <div className="text-right relative -top-1 -right-1"><span className="bg-youssef text-white px-2 py-1 inline-block rounded-bl-md rounded-tr-md text-sm last-sold">Last SOLD: <span className="text-xs">{Math.floor(Math.random() * 100) + 1}s ago</span></span></div>
             <p className="text-2xl mt-3 package-name">6 Months Pass</p>
             <p className="text-6xl font-bold package-price"><span style={{fontSize: '30px'}}>{symbol}</span>{pack6[0]}</p>
             <p className="text-sm package-interval">per month</p>
-            <span className="mt-3 py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save">SAVE 30% </span>
+            <span className="mt-3 py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save">SAVE 30% </span>
             <p className="mt-3 text-xs font-light package-guarantee">30-day money-back guarantee</p>
 
-            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol}
+            <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol}
             {Number.parseFloat(pack6[3]*135/100).toFixed(2)}
             </span> {symbol}{pack6[3]}  billed one time </p>
           </div>
           <div className="px-4 py-5 md:hidden">
-            <span className="absolute py-1 px-3 text-sm text-white bg-green-500 inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 30% </span>
+            <span className="absolute py-1 px-3 text-sm text-white bg-youssef inline-block rounded-full package-save whitespace-nowrap" style={{transform: 'translateX(-50%)', top: '-14px', left: '50%'}}>SAVE 30% </span>
             <div className="flex space-x-2 items-center">
              
               <div className="flex-1 text-left">
                 <p className="package-name">6 Months Pass</p>
-                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-green-500 line-through regular-price">{symbol} {Number.parseFloat(pack6[3]*135/100).toFixed(2)}</span> {symbol}{pack6[3]}  billed one time </p>
+                <p class="mt-4 mb-3 text-sm package-total-price"><span class="text-youssef line-through regular-price">{symbol} {Number.parseFloat(pack6[3]*135/100).toFixed(2)}</span> {symbol}{pack6[3]}  billed one time </p>
               </div>
               <p className="font-semibold package-price flex-shrink" style={{fontSize: '25px'}}><span className="font-medium" style={{fontSize: '14px'}}>{symbol}</span>{pack6[0]} <span className="font-medium" style={{fontSize: '14px'}}> / mo</span></p>
             </div>
@@ -1063,13 +1083,13 @@ const Month12 = () => {
       </div>
            
             
-               <div  ref={myRef} id="fill-details" className="flex space-x-4 items-center py-12 mt-6"><span className="text-white h-7 px-3 rounded-lg inline-flex justify-center items-center"style={{background: 'rgb(55, 211, 72)', outline: 'none'}} >Step 2</span><span className="font-semibold md:text-2xl text-xl">Fill Your Details</span></div>
+               <div  ref={myRef} id="fill-details" className="flex space-x-4  items-center py-12 mt-6"><span className="text-white bg-youssef h-7 px-3 rounded-lg inline-flex justify-center items-center" >Step 2</span><span className="font-semibold md:text-2xl text-xl">Fill Your Details</span></div>
                <div className="fill-details grid grid-cols-3 gap-10">
                   <div className="shadow-md col-span-3 order-2 md:col-span-2 md:order-1 items-center bg-white p-4 md:p-8 rounded-xl">
                      <div className="space-y-7">
                         <div className={" space-y-3"} >
                            <div>
-                              <div className=" rounded-md px-3   "><label htmlFor="email" className="block  font-medium text-gray-900">Email <span className="text-green-600">*</span></label><input type="email" 
+                              <div className=" rounded-md px-3   "><label htmlFor="email" className="block  font-medium text-gray-900">Email <span className="text-youssef">*</span></label><input type="email" 
                              
                               value={myemail}
                               onChange={changemail}
@@ -1085,7 +1105,7 @@ const Month12 = () => {
 <select 
 value={Device} onChange={handleSelectChange}
  
- id="subscription_type" name="subscription_type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-2  border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md ">
+ id="subscription_type" name="subscription_type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-2  border-gray-300 focus:outline-none focus:ring-youssef focus:border-youssef sm:text-sm rounded-md ">
 <option value="Amazon Fire stick / Fire tv" >Amazon Fire stick / Fire tv</option>
 <option value="Smart Tv">Smart Tv</option>
 <option value="Android Device">Android Device</option>
@@ -1115,9 +1135,9 @@ value={Device} onChange={handleSelectChange}
         
                               <div className="grid grid-cols-2 gap-3">{/**/}
                               
+                          <div className= {stripeenabled ? "" : "hidden" } >
                           
-                          
-                              <div  onClick={ () => creditcard() } className= {pm == "Stripe" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "} >
+                              <div    onClick={ () => creditcard() } className= {pm == "Stripe" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "} >
                                  
                               <div className="flex-1 flex space-x-3 items-center">
                                  
@@ -1128,6 +1148,9 @@ value={Device} onChange={handleSelectChange}
                               
                               
                           </div>
+                          </div>
+
+                          <div className= {paypalenabled ? "" : "hidden" } >
 
                               <div   onClick={ () => paypal() } className= {pm == "paypal" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "}>
                                  
@@ -1140,6 +1163,10 @@ value={Device} onChange={handleSelectChange}
                                  
                                  
                              </div>
+                             </div>
+
+                             <div className= {coinbaseneabled ? "" : "hidden" } >
+
 
                                  <div   onClick={ () => crypto() } className= {pm == "crypto" ? "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2 bg-blue-200 " : "cursor-pointer flex items-center border py-4 px-5 rounded-md col-span-2  "}>
                                  
@@ -1151,6 +1178,7 @@ value={Device} onChange={handleSelectChange}
                                     <p className="type">Cryptocurrency</p></div>
                                  
                                  
+                             </div>
                              </div>
                               </div>
 
@@ -1275,7 +1303,7 @@ onSuccess={(details, data) => {
 
 
 <div className={isStripe || pm == "paypal" ? 'hidden' : ''}  >
-<button style={{background: 'rgb(55, 211, 72)', outline: 'none'}} onClick={ () => initcheck2() } className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>CONTINUE</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+<button  onClick={ () => initcheck2() } className="mx-auto bg-youssef flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6"><span></span><span>CONTINUE</span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
 </div>
 
 
@@ -1331,9 +1359,9 @@ onSuccess={(details, data) => {
                         </span></div>
                      
                      <div className="mt-2 flex space-x-2"><input type="text" value={couponcode}
-                              onChange={e => setCoupon(e.target.value)} name="coupon" id="coupon" className="flex-1 shadow-sm ring-green-500 border-black border-2 px-2 block w-full sm:text-sm  rounded-md" placeholder="Enter coupon code." />
+                              onChange={e => setCoupon(e.target.value)} name="coupon" id="coupon" className="flex-1 shadow-sm ring-youssef border-black border-2 px-2 block w-full sm:text-sm  rounded-md" placeholder="Enter coupon code." />
                   
-                  <button  onClick={ () => coupon() } className="disabled:opacity-50 text-white bg-green-500 py-2 px-3 text-sm rounded-md" style={{background: 'rgb(55, 211, 72)', outline: 'none'}}>Apply</button></div>{/**/}{/**/}</div></div>
+                  <button  onClick={ () => coupon() } className="disabled:opacity-50 text-white bg-youssef py-2 px-3 text-sm rounded-md" >Apply</button></div>{/**/}{/**/}</div></div>
 
 
 

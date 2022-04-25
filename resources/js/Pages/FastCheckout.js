@@ -402,6 +402,8 @@ if ( pm == "Stripe"){
     "adultprice" : "",
     "paid" : "no",
     "currency" : currency,
+    "ref" : refparam,
+    "method" : pm,
     "stripetoken" : stripetoken,
     "status" : "Waiting Payment",
     "packageprice" : symbol +" " + lastprice + " " + currency,
@@ -458,6 +460,8 @@ else if( pm == "crypto"){
       "adultprice" : "",
       "paid" : "no",
       "currency" : currency,
+      "ref" : refparam,
+      "method" : pm,
       "status" : "Waiting Payment",
       "packageprice" : symbol +" " + lastprice + " " + currency,
       "total" : lastprice
@@ -513,6 +517,8 @@ else if( pm == "crypto"){
       "adultprice" : "",
       "paid" : "no",
       "currency" : currency,
+      "ref" : refparam,
+      "method" : pm,
       "status" : "Waiting Payment",
       "packageprice" : symbol +" " + lastprice + " " + currency,
       "total" : lastprice
@@ -617,13 +623,15 @@ useEffect(() => {
       "adultprice" : "",
       "paid" : "no",
       "currency" : currency,
+      "ref" : refparam,
       
+      "method" : pm,
       "status" : "Waiting Payment",
       "packageprice" : symbol +" " + lastprice + " " + currency,
       "total" : lastprice
   
    }
-//   setPayPalToken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
+ setPayPalToken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
 
   
    axios.post('/api/createsub2', subinfo).then(function(result) {
@@ -692,7 +700,9 @@ useEffect(() => {
       "adultprice" : "",
       "paid" : "no",
       "currency" : currency,
+      "ref" : refparam,
       
+      "method" : pm,
       "status" : "Waiting Payment",
       "packageprice" : symbol +" " + lastprice + " " + currency,
       "total" : lastprice
@@ -853,10 +863,21 @@ const Month12 = () => {
       setPayPal(false)
       setCoeff(1)
     }    
+    const toggleCad = () => {
+      setCurrency("CAD")
+      setSymbol("$C ")
+      setSvg("https://res.cloudinary.com/luxiptv/image/upload/v1650922767/cad_jnqxtn.svg")
+      SetStripe(false)
+      
+   setpm("")
+      setPayPal(false)
+      setCoeff(1.70)
+    }    
 
     const parsed = queryString.parse(location.search);
-    const couponparam = parsed.coupon;
+    const couponparam = parsed.coupon || "";
     const emailparam = parsed.email;
+    const refparam = parsed.ref || "";
     const ott = parsed.ott;
 
     useEffect(() => {
@@ -872,7 +893,7 @@ const Month12 = () => {
 
          localStorage.setItem('isott', 1);
 
-         Inertia.get('/checkout?coupon='+couponparam, {  }, { replace: true })
+         Inertia.get('/checkout?coupon='+couponparam+"&ref="+refparam, {  }, { replace: true })
 
       }
       if (emailparam){
@@ -928,7 +949,15 @@ const Month12 = () => {
 
                          <button  onClick={ () => toggleUsd() } className="block py-2 px-5 flex"><img className="h-6 rounded-md flex-shrink mr-2" src="https://res.cloudinary.com/luxiptv/image/upload/v1646680584/usd_j7e7hf.svg" alt="USD Currency flag"/><span>$ USD</span></button>
                       
-                      <button  onClick={ () => toggleGbp() } className="block py-2 px-5 flex"><img className="h-6 rounded-md flex-shrink mr-2" src="https://res.cloudinary.com/luxiptv/image/upload/v1646680671/gbp_1_aqaywq.svg" alt="GBP Currency flag"/><span>£ GBP</span></button>
+                         <button  onClick={ () => toggleGbp() } className="block py-2 px-5 flex"><img className="h-6 rounded-md flex-shrink mr-2" src="https://res.cloudinary.com/luxiptv/image/upload/v1646680671/gbp_1_aqaywq.svg" alt="GBP Currency flag"/><span>£ GBP</span></button>
+
+                         
+                         <button  onClick={ () => toggleCad() } className="block py-2 px-5 flex"><img className="h-6 rounded-md flex-shrink mr-2" src="https://res.cloudinary.com/luxiptv/image/upload/v1650922767/cad_jnqxtn.svg" alt="GBP Currency flag"/><span>$ CAD</span></button>
+
+
+                         
+
+                    
                       
                       </div>
                   </div>

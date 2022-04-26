@@ -625,7 +625,7 @@ useEffect(() => {
       "currency" : currency,
       "ref" : refparam,
       
-      "method" : pm,
+      "method" : "paypal",
       "status" : "Waiting Payment",
       "packageprice" : symbol +" " + lastprice + " " + currency,
       "total" : lastprice

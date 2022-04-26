@@ -631,7 +631,6 @@ useEffect(() => {
       "total" : lastprice
   
    }
- setPayPalToken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
 
   
    axios.post('/api/createsub2', subinfo).then(function(result) {

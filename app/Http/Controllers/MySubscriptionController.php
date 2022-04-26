@@ -87,7 +87,7 @@ print_r  ($response->data->id );
             'status' => $request->status,
             'channels' => $request->channels,
             'currency' => $request->currency,
-            'ref' => $request->ref,
+            'myref' => $request->ref,
             'method' => $request->method,
             'placeddate' => $request->placeddate,
             'packagename' => $request->packagename,

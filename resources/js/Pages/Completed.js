@@ -11,7 +11,15 @@ const Checkout2 = () => {
     const [orderid,setorder] = useState("")
     const [packageprice,setprice] = useState("")
     const [email,setemail] = useState("Grina2iris@outlook.com")
-    
+ 
+
+    useEffect( () => {
+     
+      
+      window.location.href = 'https://fast-tvfiy.co.uk/thanks/';
+
+  
+    }, [])
 
     
     

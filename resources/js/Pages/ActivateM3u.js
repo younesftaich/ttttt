@@ -77,8 +77,8 @@ const activate = async () => {
          };
          console.log(subdata)
 
-    let res1 = await axios.post('/activatem3u/'+id, subdata)
-         console.log(res1.data)
+    let res1 = await axios.post('/api/activatem3u/'+id, subdata)
+         alert(res1.data)
 
 }
 
